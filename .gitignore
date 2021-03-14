@@ -1,0 +1,5 @@
+*.vpk
+*.self
+*.cmake
+CMakeCache.txt
+CMakeFiles

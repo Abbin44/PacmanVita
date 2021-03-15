@@ -172,8 +172,8 @@ void Game::StartGame()
         vita2d_swap_buffers();
 
         //1000000 is one second
-        //Currently sleeping 70ms
-        sceKernelDelayThread(70000);
+        //Currently sleeping 75ms
+        sceKernelDelayThread(75000);
     }
     vita2d_fini();
 }

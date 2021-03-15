@@ -51,7 +51,6 @@ link_directories(
 add_executable(${PROJECT_NAME}
   src/main.cpp
   src/game.cpp
-  src/position.cpp
 )
 
 # Library to link to (drop the -l prefix). This will mostly be stubs.

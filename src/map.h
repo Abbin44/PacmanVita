@@ -1,6 +1,5 @@
 #include <vita2d.h>
 
-#include "screen.h"
 #include <iostream>
 #include "position.h"
 class Map

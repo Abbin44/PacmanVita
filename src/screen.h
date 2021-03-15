@@ -1,6 +1,6 @@
 class Screen
 {
 public:
-  int width = 944;
-  int height = 544;
+  int screenWidth = 944;
+  int screenHeight = 544;
 };

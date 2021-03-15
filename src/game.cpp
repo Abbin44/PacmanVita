@@ -5,6 +5,7 @@
 #include <psp2/kernel/processmgr.h>
 #include <vita2d.h>
 
+#include "screen.h"
 #include "game.h"
 #include "player.h"
 #include "map.h"
@@ -17,6 +18,8 @@ void Game::StartGame()
     vita2d_pgf *pgf;
     pgf = vita2d_load_default_pgf();
     Map map;
+    Screen screen;
+
     SceCtrlData ctrl;
     memset(&ctrl, 0, sizeof(ctrl));
 
@@ -27,11 +30,11 @@ void Game::StartGame()
 
       std::string pacX = std::to_string(map.pacmanPos.x);
       std::string pacY = std::to_string(map.pacmanPos.y);
-      //std::string scrString = "Score: " + std::to_string(score);
+      std::string scrString = "Score: " + std::to_string(score);
 
       vita2d_pgf_draw_text(pgf, 30, 30, RGBA8(0,255,0,255), 1.0f, pacX.data());
       vita2d_pgf_draw_text(pgf, 30, 60, RGBA8(0,255,0,255), 1.0f, pacY.data());
-      //vita2d_pgf_draw_text(pgf, 600, 540, RGBA8(0,255,0,255), 1.0f, scrString.data());
+      vita2d_pgf_draw_text(pgf, 698, screen.screenHeight - 19, RGBA8(0,255,0,255), 1.0f, scrString.data());
 
       sceCtrlSetSamplingMode(SCE_CTRL_MODE_ANALOG);
       sceCtrlPeekBufferPositive(0, &ctrl, 1);
@@ -93,6 +96,13 @@ void Game::StartGame()
       }
       else if(ctrl.buttons & SCE_CTRL_LEFT)//Move to the left
       {
+        if(map.pacmanPos.y == 9 && map.pacmanPos.x == 0)//Left screen hole
+        {
+            map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'e';
+            map.pacmanPos.x = 18;
+            map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'Y';
+        }
+
         switch (map.mapString[map.pacmanPos.y][map.pacmanPos.x - 1])
         {
           case 'w': break;
@@ -120,6 +130,13 @@ void Game::StartGame()
       }
       else if(ctrl.buttons & SCE_CTRL_RIGHT)//Move to the right
       {
+        if(map.pacmanPos.y == 9 && map.pacmanPos.x == 18)//Right screen hole
+        {
+            map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'e';
+            map.pacmanPos.x = 0;
+            map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'Y';
+        }
+
         switch (map.mapString[map.pacmanPos.y][map.pacmanPos.x + 1])
         {
           case 'w': break;

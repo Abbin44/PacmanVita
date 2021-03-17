@@ -12,9 +12,9 @@ public:
   void StartScreen()
   {
       vita2d_init();
-      vita2d_pgf *pgf;
-
-      pgf = vita2d_load_default_pgf();
+      vita2d_set_clear_color(RGBA8(0, 0, 0, 255));
+      vita2d_pgf *pgf = vita2d_load_default_pgf();
+      vita2d_texture *logo = vita2d_load_PNG_file("app0:assets/logo.png");
 
       SceCtrlData ctrl;
       memset(&ctrl, 0, sizeof(ctrl));
@@ -31,14 +31,15 @@ public:
         vita2d_start_drawing();
         vita2d_clear_screen();
 
+        vita2d_draw_texture_scale(logo, screenWidth / 3 - 15, 15, 0.5f, 0.5f);
         vita2d_pgf_draw_text(pgf, screenWidth / 3 + 15, screenHeight / 2 - 10, RGBA8(255,255,255,255), 1.0f, "PRESS START TO PLAY!");
-    		vita2d_pgf_draw_text(pgf, screenWidth / 3 + 15, screenHeight / 2 + 10, RGBA8(255,255,255,255), 1.0f, "PRESS SELECT TO EXIT!");
-
+        vita2d_pgf_draw_text(pgf, screenWidth / 3 + 15, screenHeight / 2 + 10, RGBA8(255,255,255,255), 1.0f, "PRESS SELECT TO EXIT!");
 
         vita2d_end_drawing();
         vita2d_swap_buffers();
       }
       vita2d_fini();
       vita2d_free_pgf(pgf);
+      vita2d_free_texture(logo);
   }
 };

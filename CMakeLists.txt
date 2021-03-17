@@ -55,9 +55,9 @@ add_executable(${PROJECT_NAME}
 
 # Library to link to (drop the -l prefix). This will mostly be stubs.
 target_link_libraries(${PROJECT_NAME}
-  SceLibKernel_stub # this line is only for demonstration. It's not needed as
+  SceLibKernel_stub
   vita2d
-  SceDisplay_stub   # This used by debugScreenPrintf()
+  SceDisplay_stub
   SceGxm_stub
   SceSysmodule_stub
   SceAppMgr_stub
@@ -66,6 +66,8 @@ target_link_libraries(${PROJECT_NAME}
   ScePvf_stub
   SceCtrl_stub
   SceThreadmgrForDriver_stub
+  png
+  z
 )
 
 ## Create Vita files
@@ -75,5 +77,7 @@ vita_create_self(${PROJECT_NAME}.self ${PROJECT_NAME})
 vita_create_vpk(${PROJECT_NAME}.vpk ${VITA_TITLEID} ${PROJECT_NAME}.self
   VERSION ${VITA_VERSION}
   NAME ${VITA_APP_NAME}
-  #FILE assets/livearea/icon.png sce_sys/icon0.png
+  #FILE sce_sys/icon.png sce_sys/icon0.png
+  FILE assets/logo.png assets/logo.png
+  FILE assets/pacman.png assets/pacman.png
 )

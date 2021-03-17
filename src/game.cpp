@@ -7,13 +7,11 @@
 
 #include "screen.h"
 #include "game.h"
-#include "player.h"
 #include "map.h"
 
 void Game::StartGame()
 {
     vita2d_init();
-    vita2d_set_clear_color(RGBA8(0, 0, 0, 255));
 
     vita2d_pgf *pgf;
     pgf = vita2d_load_default_pgf();

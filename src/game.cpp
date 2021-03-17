@@ -29,7 +29,6 @@ void Game::StartGame()
       std::string pacX = std::to_string(map.pacmanPos.x);
       std::string pacY = std::to_string(map.pacmanPos.y);
       std::string scrString = "Score: " + std::to_string(score);
-
       vita2d_pgf_draw_text(pgf, 30, 30, RGBA8(0,255,0,255), 1.0f, pacX.data());
       vita2d_pgf_draw_text(pgf, 30, 60, RGBA8(0,255,0,255), 1.0f, pacY.data());
       vita2d_pgf_draw_text(pgf, 698, screen.screenHeight - 19, RGBA8(0,255,0,255), 1.0f, scrString.data());
@@ -48,6 +47,7 @@ void Game::StartGame()
             map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'e';
             --map.pacmanPos.y;
             map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'Y';
+            map.pacmanPos.rotation = 3;
             break;
           case 's': //Special pellet
             --totalPellets;
@@ -55,11 +55,13 @@ void Game::StartGame()
             map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'e';
             --map.pacmanPos.y;
             map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'Y';
+            map.pacmanPos.rotation = 3;
             break;
-          case 'e': //Empty void
+          case 'e': //Empty
             map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'e';
             --map.pacmanPos.y;
             map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'Y';
+            map.pacmanPos.rotation = 3;
             break;
           default: break;
         }
@@ -76,6 +78,7 @@ void Game::StartGame()
             map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'e';
             ++map.pacmanPos.y;
             map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'Y';
+            map.pacmanPos.rotation = 4;
             break;
           case 's': //Special pellet
             --totalPellets;
@@ -83,11 +86,13 @@ void Game::StartGame()
             map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'e';
             ++map.pacmanPos.y;
             map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'Y';
+            map.pacmanPos.rotation = 4;
             break;
-          case 'e':
+          case 'e'://Empty
             map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'e';
             ++map.pacmanPos.y;
             map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'Y';
+            map.pacmanPos.rotation = 4;
             break;
           default: break;
         }
@@ -99,6 +104,7 @@ void Game::StartGame()
             map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'e';
             map.pacmanPos.x = 18;
             map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'Y';
+            map.pacmanPos.rotation = 2;
         }
 
         switch (map.mapString[map.pacmanPos.y][map.pacmanPos.x - 1])
@@ -110,6 +116,7 @@ void Game::StartGame()
             map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'e';
             --map.pacmanPos.x;
             map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'Y';
+            map.pacmanPos.rotation = 2;
             break;
           case 's': //Special pellet
             --totalPellets;
@@ -117,11 +124,13 @@ void Game::StartGame()
             map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'e';
             --map.pacmanPos.x;
             map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'Y';
+            map.pacmanPos.rotation = 2;
             break;
-          case 'e':
+          case 'e'://Empty
             map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'e';
             --map.pacmanPos.x;
             map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'Y';
+            map.pacmanPos.rotation = 2;
             break;
           default: break;
         }
@@ -133,6 +142,7 @@ void Game::StartGame()
             map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'e';
             map.pacmanPos.x = 0;
             map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'Y';
+            map.pacmanPos.rotation = 1;
         }
 
         switch (map.mapString[map.pacmanPos.y][map.pacmanPos.x + 1])
@@ -144,6 +154,7 @@ void Game::StartGame()
             map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'e';
             ++map.pacmanPos.x;
             map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'Y';
+            map.pacmanPos.rotation = 1;
             break;
           case 's': //Special pellet
             --totalPellets;
@@ -151,17 +162,19 @@ void Game::StartGame()
             map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'e';
             ++map.pacmanPos.x;
             map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'Y';
+            map.pacmanPos.rotation = 1;
             break;
           case 'e':
             map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'e';
             ++map.pacmanPos.x;
             map.mapString[map.pacmanPos.y][map.pacmanPos.x] = 'Y';
+            map.pacmanPos.rotation = 1;
             break;
           default: break;
         }
       }
 
-      if (ctrl.buttons & SCE_CTRL_START) //Exit
+      if (ctrl.buttons & SCE_CTRL_SELECT) //Exit
   			break;
 
         map.GenerateMap();

@@ -79,5 +79,9 @@ vita_create_vpk(${PROJECT_NAME}.vpk ${VITA_TITLEID} ${PROJECT_NAME}.self
   NAME ${VITA_APP_NAME}
   #FILE sce_sys/icon.png sce_sys/icon0.png
   FILE assets/logo.png assets/logo.png
-  FILE assets/pacman.png assets/pacman.png
+  FILE assets/pacmanR.png assets/pacmanR.png
+  FILE assets/pacmanL.png assets/pacmanL.png
+  FILE assets/pacmanU.png assets/pacmanU.png
+  FILE assets/pacmanD.png assets/pacmanD.png
+
 )

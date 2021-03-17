@@ -38,6 +38,10 @@ public:
   Position oGhostPos;
   Position pGhostPos;
   Position ghosts[4] = {rGhostPos, gGhostPos, oGhostPos, pGhostPos};
+  vita2d_texture *pacmanSR = vita2d_load_PNG_file("app0:assets/pacmanR.png");
+  vita2d_texture *pacmanSL = vita2d_load_PNG_file("app0:assets/pacmanL.png");
+  vita2d_texture *pacmanSU = vita2d_load_PNG_file("app0:assets/pacmanU.png");
+  vita2d_texture *pacmanSD = vita2d_load_PNG_file("app0:assets/pacmanD.png");
 
   void GenerateMap()
   {
@@ -69,11 +73,28 @@ public:
             x += tileUnitSize;
               //Draw empty space
           }
-          else if(mapString[i][j] == 'Y')
+          else if(mapString[i][j] == 'Y')//Pacman
           {
               pacmanPos.y = i;
               pacmanPos.x = j;
-              vita2d_draw_fill_circle(pacmanPos.x * tileUnitSize + 213 + 12, pacmanPos.y * tileUnitSize + 12, 12, RGBA8(255, 255, 0, 255));//Yellow pacman
+              switch (pacmanPos.rotation)
+              {
+                case 1://RIGHT
+                    vita2d_draw_texture_scale(pacmanSR, pacmanPos.x * tileUnitSize + 213 + 3, pacmanPos.y * tileUnitSize + 2, 0.4f, 0.4f);
+                    break;
+                case 2://LEFT
+                    vita2d_draw_texture_scale(pacmanSL, pacmanPos.x * tileUnitSize + 213 + 3, pacmanPos.y * tileUnitSize + 2, 0.4f, 0.4f);
+                    break;
+                case 3://UP
+                    vita2d_draw_texture_scale(pacmanSU, pacmanPos.x * tileUnitSize + 213 + 2, pacmanPos.y * tileUnitSize + 2, 0.4f, 0.4f);
+                    break;
+                case 4://DOWN
+                    vita2d_draw_texture_scale(pacmanSD, pacmanPos.x * tileUnitSize + 213 + 3, pacmanPos.y * tileUnitSize + 2, 0.4f, 0.4f);
+                    break;
+                default:
+                    break;
+              }
+              //vita2d_draw_fill_circle(pacmanPos.x * tileUnitSize + 213 + 12, pacmanPos.y * tileUnitSize + 12, 12, RGBA8(255, 255, 0, 255));//Yellow pacman
               x += tileUnitSize;
           }
           else if(mapString[i][j] == 'G')//Green Ghost

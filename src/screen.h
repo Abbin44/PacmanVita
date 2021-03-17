@@ -31,7 +31,7 @@ public:
         vita2d_start_drawing();
         vita2d_clear_screen();
 
-        vita2d_draw_texture_scale(logo, screenWidth / 3 - 15, 15, 0.5f, 0.5f);
+        vita2d_draw_texture_scale(logo, screenWidth / 3 - 80, 15, 0.5f, 0.5f);
         vita2d_pgf_draw_text(pgf, screenWidth / 3 + 15, screenHeight / 2 - 10, RGBA8(255,255,255,255), 1.0f, "PRESS START TO PLAY!");
         vita2d_pgf_draw_text(pgf, screenWidth / 3 + 15, screenHeight / 2 + 10, RGBA8(255,255,255,255), 1.0f, "PRESS SELECT TO EXIT!");
 

@@ -177,6 +177,7 @@ void Game::StartGame()
       if (ctrl.buttons & SCE_CTRL_SELECT) //Exit
   			break;
 
+        map.MoveGhosts();
         map.GenerateMap();
 
         vita2d_end_drawing();

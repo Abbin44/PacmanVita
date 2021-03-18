@@ -32,12 +32,16 @@ public:
     "wwwwwwwwwwwwwwwwwww",
   };
   int tileUnitSize = 25;//The size of one unit
-  Position pacmanPos;
-  Position rGhostPos;
-  Position gGhostPos;
-  Position oGhostPos;
-  Position pGhostPos;
-  Position ghosts[4] = {rGhostPos, gGhostPos, oGhostPos, pGhostPos};
+  PosiCharactertion pacmanPos;
+  Character rGhostPos;
+  rGhostPos.icon = 'R';
+  Character gGhostPos;
+  gGhostPos.icon = 'G';
+  Character oGhostPos;
+  oGhostPos.icon = 'O';
+  Character pGhostPos;
+  pGhostPos = 'P';
+  Character ghosts[4] = {rGhostPos, gGhostPos, oGhostPos, pGhostPos};
   vita2d_texture *pacmanSR = vita2d_load_PNG_file("app0:assets/pacmanR.png");
   vita2d_texture *pacmanSL = vita2d_load_PNG_file("app0:assets/pacmanL.png");
   vita2d_texture *pacmanSU = vita2d_load_PNG_file("app0:assets/pacmanU.png");
@@ -131,5 +135,52 @@ public:
       }
       x = 213;
       y = 0;
+  }
+
+  void MoveGhosts()
+  {
+      for (size_t i = 0; i < ghosts.Length; ++i)
+      {
+          if (pacmanPos.y < ghosts[i].y && ghosts[i].lastDirection != 'U')//GO DOWN
+          {
+              if (mapString[ghosts[i].y + 1][ghosts[i].x] != 'w')//If char below ghost is not a wall
+              {
+                 mapString[ghosts[i].y][ghosts[i].x] = mapString[ghosts[i].y][ghosts[i].x];
+                 ++ghosts[i].y;
+                 mapString[ghosts[i].y][ghosts[i].x] = ghosts[i].icon;
+                 ghosts[i].lastDirection = 'D';
+              }
+          }
+          else if(pacmanPos.y > ghosts[i].y && ghosts[i].lastDirection != 'D')//GO UP
+          {
+              if (mapString[ghosts[i].y - 1][ghosts[i].x] != 'w')
+              {
+                mapString[ghosts[i].y][ghosts[i].x] = mapString[ghosts[i].y][ghosts[i].x];
+                --ghosts[i].y;
+                mapString[ghosts[i].y][ghosts[i].x] = ghosts[i].icon;
+                ghosts[i].lastDirection = 'U';
+              }
+          }
+          else if(pacmanPos.x < ghosts[i].x && ghosts[i].lastDirection != 'R')//GO LEFT
+          {
+              if (mapString[ghosts[i].y][ghosts[i].x - 1] != 'w')
+              {
+                mapString[ghosts[i].y][ghosts[i].x] = mapString[ghosts[i].y][ghosts[i].x];
+                --ghosts[i].x;
+                mapString[ghosts[i].y][ghosts[i].x] = ghosts[i].icon
+                ghosts[i].lastDirection = 'L';
+              }
+          }
+          else if(pacmanPos.x > ghosts[i].x && ghosts[i].lastDirection != 'L')//GO RIGHT
+          {
+              if (mapString[ghosts[i].y][ghosts[i].x + 1] != 'w')
+              {
+                mapString[ghosts[i].y][ghosts[i].x] = mapString[ghosts[i].y][ghosts[i].x];
+                ++ghosts[i].x;
+                mapString[ghosts[i].y][ghosts[i].x] = ghosts[i].icon;
+                ghosts[i].lastDirection = 'R';
+              }
+          }
+      }
   }
 };

@@ -8,4 +8,5 @@ class Character
     int rotation;
     char lastDirection;
     char icon;
+    char currentCell;
 };

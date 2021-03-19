@@ -148,52 +148,42 @@ public:
   {
       for (size_t i = 0; i < 4; ++i)
       {
-          if (pacmanPos.y > ghosts[i].y && ghosts[i].lastDirection != 'U')//GO DOWN
+          if(pacmanPos.y > ghosts[i].y)
           {
-              if (mapString[ghosts[i].y + 1][ghosts[i].x] != 'w')//If char below ghost is not a wall
+              if(ghosts[i].y + 1 < 21 && mapString[ghosts[i].y + 1][ghosts[i].x] != 'w') //Down
               {
-                 ghosts[i].currentCell = mapString[ghosts[i].y + 1][ghosts[i].x];
-                 ++ghosts[i].y;
-                 mapString[ghosts[i].y - 1][ghosts[i].x] = ghosts[i].currentCell;
-                 mapString[ghosts[i].y][ghosts[i].x] = ghosts[i].icon;
-                 ghosts[i].lastDirection = 'D';
-                 continue;
+                  ghosts[i].currentCell = mapString[ghosts[i].y + 1][ghosts[i].x];
+                  ++ghosts[i].y;
+                  mapString[ghosts[i].y][ghosts[i].x] = ghosts[i].icon;
+                  mapString[ghosts[i].y - 1][ghosts[i].x] = ghosts[i].currentCell;
+                  continue;
               }
-          }
-          else if(pacmanPos.y < ghosts[i].y && ghosts[i].lastDirection != 'D')//GO UP
-          {
-              if (mapString[ghosts[i].y - 1][ghosts[i].x] != 'w')
+
+              if(ghosts[i].y - 1 > -1 && mapString[ghosts[i].y - 1][ghosts[i].x] != 'w')//Up
               {
-                ghosts[i].currentCell = mapString[ghosts[i].y - 1][ghosts[i].x];
-                --ghosts[i].y;
-                mapString[ghosts[i].y + 1][ghosts[i].x] = ghosts[i].currentCell;
-                mapString[ghosts[i].y][ghosts[i].x] = ghosts[i].icon;
-                ghosts[i].lastDirection = 'U';
-                continue;
+                  ghosts[i].currentCell = mapString[ghosts[i].y - 1][ghosts[i].x];
+                  --ghosts[i].y;
+                  mapString[ghosts[i].y][ghosts[i].x] = ghosts[i].icon;
+                  mapString[ghosts[i].y + 1][ghosts[i].x] = ghosts[i].currentCell;
+                  continue;
               }
-          }
-          else if(pacmanPos.x < ghosts[i].x && ghosts[i].lastDirection != 'R')//GO LEFT
-          {
-              if (mapString[ghosts[i].y][ghosts[i].x - 1] != 'w')
+
+              if(ghosts[i].x + 1 < 20 && mapString[ghosts[i].y][ghosts[i].x + 1] != 'w')//Right
               {
-                ghosts[i].currentCell = mapString[ghosts[i].y][ghosts[i].x - 1];
-                --ghosts[i].x;
-                mapString[ghosts[i].y][ghosts[i].x + 1] = ghosts[i].currentCell;
-                mapString[ghosts[i].y][ghosts[i].x] = ghosts[i].icon;
-                ghosts[i].lastDirection = 'L';
-                continue;
+                  ghosts[i].currentCell = mapString[ghosts[i].y][ghosts[i].x + 1];
+                  ++ghosts[i].x;
+                  mapString[ghosts[i].y][ghosts[i].x] = ghosts[i].icon;
+                  mapString[ghosts[i].y][ghosts[i].x - 1] = ghosts[i].currentCell;
+                  continue;
               }
-          }
-          else if(pacmanPos.x > ghosts[i].x && ghosts[i].lastDirection != 'L')//GO RIGHT
-          {
-              if (mapString[ghosts[i].y][ghosts[i].x + 1] != 'w')
+
+              if(ghosts[i].x - 1 > -1 && mapString[ghosts[i].y][ghosts[i].x - 1] != 'w')//Left
               {
-                ghosts[i].currentCell = mapString[ghosts[i].y][ghosts[i].x + 1];
-                ++ghosts[i].x;
-                mapString[ghosts[i].y][ghosts[i].x - 1] = ghosts[i].currentCell;
-                mapString[ghosts[i].y][ghosts[i].x] = ghosts[i].icon;
-                ghosts[i].lastDirection = 'R';
-                continue;
+                  ghosts[i].currentCell = mapString[ghosts[i].y][ghosts[i].x - 1];
+                  --ghosts[i].x;
+                  mapString[ghosts[i].y][ghosts[i].x] = ghosts[i].icon;
+                  mapString[ghosts[i].y][ghosts[i].x + 1] = ghosts[i].currentCell;
+                  continue;
               }
           }
       }

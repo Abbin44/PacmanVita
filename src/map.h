@@ -33,11 +33,10 @@ public:
   };
   int tileUnitSize = 25;//The size of one unit
   Character pacmanPos;
-  Character rGhostPos;
-  Character gGhostPos;
-  Character oGhostPos;
-  Character pGhostPos;
-  Character ghosts[4] = {rGhostPos, gGhostPos, oGhostPos, pGhostPos};
+  Character ghosts[0];
+  Character ghosts[1];
+  Character ghosts[2];
+  Character ghosts[4];
   vita2d_texture *pacmanSR = vita2d_load_PNG_file("app0:assets/pacmanR.png");
   vita2d_texture *pacmanSL = vita2d_load_PNG_file("app0:assets/pacmanL.png");
   vita2d_texture *pacmanSU = vita2d_load_PNG_file("app0:assets/pacmanU.png");
@@ -48,7 +47,7 @@ public:
     if(y < 21 && y > -1 && x < 20 && x > -1)
       return mapString[y][x];
     else
-      return 'i';
+      throw "out of bounds error";
   }
 
   void SetYX(int y, int x, char symbol)
@@ -115,30 +114,30 @@ public:
           }
           else if(GetYX(i, j) == 'G')//Green Ghost
           {
-              gGhostPos.y = i;
-              gGhostPos.x = j;
-              vita2d_draw_rectangle(gGhostPos.x * tileUnitSize + 213, gGhostPos.y * tileUnitSize, tileUnitSize, tileUnitSize, RGBA8(0, 255, 0, 255));
+              ghosts[0].y = i;
+              ghosts[0].x = j;
+              vita2d_draw_rectangle(ghosts[0].x * tileUnitSize + 213, ghosts[0].y * tileUnitSize, tileUnitSize, tileUnitSize, RGBA8(0, 255, 0, 255));
               x += tileUnitSize;
           }
           else if(GetYX(i, j) == 'O')//Orange Ghost
           {
-              oGhostPos.y = i;
-              oGhostPos.x = j;
-              vita2d_draw_rectangle(oGhostPos.x * tileUnitSize + 213, oGhostPos.y * tileUnitSize, tileUnitSize, tileUnitSize, RGBA8(255, 170, 40, 255));
+              ghosts[1].y = i;
+              ghosts[1].x = j;
+              vita2d_draw_rectangle(ghosts[1].x * tileUnitSize + 213, ghosts[1].y * tileUnitSize, tileUnitSize, tileUnitSize, RGBA8(255, 170, 40, 255));
               x += tileUnitSize;
           }
           else if(GetYX(i, j) == 'P')//Pink Ghost
           {
-              pGhostPos.y = i;
-              pGhostPos.x = j;
-              vita2d_draw_rectangle(pGhostPos.x * tileUnitSize + 213, pGhostPos.y * tileUnitSize, tileUnitSize, tileUnitSize, RGBA8(255, 115, 210, 255));
+              ghosts[2].y = i;
+              ghosts[2].x = j;
+              vita2d_draw_rectangle(ghosts[2].x * tileUnitSize + 213, ghosts[2].y * tileUnitSize, tileUnitSize, tileUnitSize, RGBA8(255, 115, 210, 255));
               x += tileUnitSize;
           }
           else if(GetYX(i, j) == 'R')//Red Ghost
           {
-              rGhostPos.y = i;
-              rGhostPos.x = j;
-              vita2d_draw_rectangle(rGhostPos.x * tileUnitSize + 213, rGhostPos.y * tileUnitSize, tileUnitSize, tileUnitSize, RGBA8(255, 0, 0, 255));
+              ghosts[3].y = i;
+              ghosts[3].x = j;
+              vita2d_draw_rectangle(ghosts[3].x * tileUnitSize + 213, ghosts[3].y * tileUnitSize, tileUnitSize, tileUnitSize, RGBA8(255, 0, 0, 255));
               x += tileUnitSize;
           }
         }
@@ -168,7 +167,7 @@ public:
           {
               if(GetYX(ghosts[i].y + 1, ghosts[i].x) != 'w') //Down
               {
-                  ghosts[i].currentCell = mapString[ghosts[i].y + 1][ghosts[i].x];
+                  ghosts[i].currentCell = GetYX(ghosts[i].y + 1, ghosts[i].x);
                   ++ghosts[i].y;
                   SetYX(ghosts[i].y, ghosts[i].x, ghosts[i].icon);
                   SetYX(ghosts[i].y - 1, ghosts[i].x, ghosts[i].currentCell);
@@ -177,7 +176,7 @@ public:
 
               if(GetYX(ghosts[i].y - 1, ghosts[i].x) != 'w')//Up
               {
-                  ghosts[i].currentCell = mapString[ghosts[i].y - 1][ghosts[i].x];
+                  ghosts[i].currentCell = GetYX(ghosts[i].y - 1, ghosts[i].x);
                   --ghosts[i].y;
                   SetYX(ghosts[i].y, ghosts[i].x, ghosts[i].icon);
                   SetYX(ghosts[i].y + 1, ghosts[i].x, ghosts[i].currentCell);
@@ -186,7 +185,7 @@ public:
 
               if(GetYX(ghosts[i].y, ghosts[i].x + 1) != 'w')//Right
               {
-                  ghosts[i].currentCell = mapString[ghosts[i].y][ghosts[i].x + 1];
+                  ghosts[i].currentCell = GetYX(ghosts[i].y, ghosts[i].x + 1);
                   ++ghosts[i].x;
                   SetYX(ghosts[i].y, ghosts[i].x, ghosts[i].icon);
                   SetYX(ghosts[i].y, ghosts[i].x - 1, ghosts[i].currentCell);
@@ -195,7 +194,7 @@ public:
 
               if(GetYX(ghosts[i].y, ghosts[i].x - 1) != 'w')//Left
               {
-                  ghosts[i].currentCell = mapString[ghosts[i].y][ghosts[i].x - 1];
+                  ghosts[i].currentCell = GetYX(ghosts[i].y, ghosts[i].x - 1);
                   --ghosts[i].x;
                   SetYX(ghosts[i].y, ghosts[i].x, ghosts[i].icon);
                   SetYX(ghosts[i].y, ghosts[i].x + 1, ghosts[i].currentCell);
@@ -203,5 +202,31 @@ public:
               }
           }
       }
+
+    void Move(Character ghost, bool isYAxis, int step)
+    {
+        if(isYAxis)
+        {
+            if(step < 0)
+              ghost.currentCell = GetYX(ghost.y - 1, ghost.x);
+            else
+              ghost.currentCell = GetYX(ghost.y + 1, ghost.x);
+
+            ghost.y + step;
+            SetYX(ghost.y, ghost.x, ghost.icon);
+            SetYX(ghost.y, ghost.x, ghost.currentCell);
+        }
+        else
+        {
+            if(step < 0)
+              ghost.currentCell = GetYX(ghost.y, ghost.x - 1);
+            else
+              ghost.currentCell = GetYX(ghost.y, ghost.x + 1);
+
+              ghost.x + step;
+              SetYX(ghost.y, ghost.x, ghost.icon);
+              SetYX(ghost.y, ghost.x, ghost.currentCell);
+        }
+    }
   }
 };

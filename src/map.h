@@ -43,37 +43,53 @@ public:
   vita2d_texture *pacmanSU = vita2d_load_PNG_file("app0:assets/pacmanU.png");
   vita2d_texture *pacmanSD = vita2d_load_PNG_file("app0:assets/pacmanD.png");
 
+  char GetYX(int y, int x)
+  {
+    if(y < 21 && y > -1 && x < 20 && x > -1)
+      return mapString[y][x];
+    else
+      return 'i';
+  }
+
+  void SetYX(int y, int x, char symbol)
+  {
+      if(y < 21 && y > -1 && x < 20 && x > -1)
+          mapString[y][x] = symbol;
+      else
+        return;
+  }
+
   void GenerateMap()
   {
       for (size_t i = 0; i < 21; ++i)
       {
         for (size_t j = 0; j < 20; ++j)
         {
-          if(mapString[i][j] == 'w')
+          if(GetYX(i, j) == 'w')
           {
             vita2d_draw_rectangle(x, y, tileUnitSize, tileUnitSize, RGBA8(0, 0, 255, 255));
             x += tileUnitSize;
               //Draw a wall
           }
-          else if(mapString[i][j] == 'p')
+          else if(GetYX(i, j) == 'p')
           {
             vita2d_draw_rectangle(x + 6, y + 6, tileUnitSize / 2, tileUnitSize / 2, RGBA8(255, 255, 255, 255));
             x += tileUnitSize;
               //Draw a pellet
           }
-          else if(mapString[i][j] == 's')
+          else if(GetYX(i, j) == 's')
           {
             vita2d_draw_rectangle(x + 6, y + 6, tileUnitSize / 2 + 4, tileUnitSize / 2 + 4, RGBA8(255, 0, 0, 255));
             x += tileUnitSize;
               //Draw a special pellet
           }
-          else if(mapString[i][j] == 'e')
+          else if(GetYX(i, j) == 'e')
           {
             vita2d_draw_rectangle(x, y, tileUnitSize, tileUnitSize, RGBA8(0, 0, 0, 255));
             x += tileUnitSize;
               //Draw empty space
           }
-          else if(mapString[i][j] == 'Y')//Pacman
+          else if(GetYX(i, j) == 'Y')//Pacman
           {
               pacmanPos.y = i;
               pacmanPos.x = j;
@@ -97,28 +113,28 @@ public:
               //vita2d_draw_fill_circle(pacmanPos.x * tileUnitSize + 213 + 12, pacmanPos.y * tileUnitSize + 12, 12, RGBA8(255, 255, 0, 255));//Yellow pacman
               x += tileUnitSize;
           }
-          else if(mapString[i][j] == 'G')//Green Ghost
+          else if(GetYX(i, j) == 'G')//Green Ghost
           {
               gGhostPos.y = i;
               gGhostPos.x = j;
               vita2d_draw_rectangle(gGhostPos.x * tileUnitSize + 213, gGhostPos.y * tileUnitSize, tileUnitSize, tileUnitSize, RGBA8(0, 255, 0, 255));
               x += tileUnitSize;
           }
-          else if(mapString[i][j] == 'O')//Orange Ghost
+          else if(GetYX(i, j) == 'O')//Orange Ghost
           {
               oGhostPos.y = i;
               oGhostPos.x = j;
               vita2d_draw_rectangle(oGhostPos.x * tileUnitSize + 213, oGhostPos.y * tileUnitSize, tileUnitSize, tileUnitSize, RGBA8(255, 170, 40, 255));
               x += tileUnitSize;
           }
-          else if(mapString[i][j] == 'P')//Pink Ghost
+          else if(GetYX(i, j) == 'P')//Pink Ghost
           {
               pGhostPos.y = i;
               pGhostPos.x = j;
               vita2d_draw_rectangle(pGhostPos.x * tileUnitSize + 213, pGhostPos.y * tileUnitSize, tileUnitSize, tileUnitSize, RGBA8(255, 115, 210, 255));
               x += tileUnitSize;
           }
-          else if(mapString[i][j] == 'R')//Red Ghost
+          else if(GetYX(i, j) == 'R')//Red Ghost
           {
               rGhostPos.y = i;
               rGhostPos.x = j;
@@ -150,39 +166,39 @@ public:
       {
           if(pacmanPos.y > ghosts[i].y)
           {
-              if(ghosts[i].y + 1 < 21 && mapString[ghosts[i].y + 1][ghosts[i].x] != 'w') //Down
+              if(GetYX(ghosts[i].y + 1, ghosts[i].x) != 'w') //Down
               {
                   ghosts[i].currentCell = mapString[ghosts[i].y + 1][ghosts[i].x];
                   ++ghosts[i].y;
-                  mapString[ghosts[i].y][ghosts[i].x] = ghosts[i].icon;
-                  mapString[ghosts[i].y - 1][ghosts[i].x] = ghosts[i].currentCell;
+                  SetYX(ghosts[i].y, ghosts[i].x, ghosts[i].icon);
+                  SetYX(ghosts[i].y - 1, ghosts[i].x, ghosts[i].currentCell);
                   continue;
               }
 
-              if(ghosts[i].y - 1 > -1 && mapString[ghosts[i].y - 1][ghosts[i].x] != 'w')//Up
+              if(GetYX(ghosts[i].y - 1, ghosts[i].x) != 'w')//Up
               {
                   ghosts[i].currentCell = mapString[ghosts[i].y - 1][ghosts[i].x];
                   --ghosts[i].y;
-                  mapString[ghosts[i].y][ghosts[i].x] = ghosts[i].icon;
-                  mapString[ghosts[i].y + 1][ghosts[i].x] = ghosts[i].currentCell;
+                  SetYX(ghosts[i].y, ghosts[i].x, ghosts[i].icon);
+                  SetYX(ghosts[i].y + 1, ghosts[i].x, ghosts[i].currentCell);
                   continue;
               }
 
-              if(ghosts[i].x + 1 < 20 && mapString[ghosts[i].y][ghosts[i].x + 1] != 'w')//Right
+              if(GetYX(ghosts[i].y, ghosts[i].x + 1) != 'w')//Right
               {
                   ghosts[i].currentCell = mapString[ghosts[i].y][ghosts[i].x + 1];
                   ++ghosts[i].x;
-                  mapString[ghosts[i].y][ghosts[i].x] = ghosts[i].icon;
-                  mapString[ghosts[i].y][ghosts[i].x - 1] = ghosts[i].currentCell;
+                  SetYX(ghosts[i].y, ghosts[i].x, ghosts[i].icon);
+                  SetYX(ghosts[i].y, ghosts[i].x - 1, ghosts[i].currentCell);
                   continue;
               }
 
-              if(ghosts[i].x - 1 > -1 && mapString[ghosts[i].y][ghosts[i].x - 1] != 'w')//Left
+              if(GetYX(ghosts[i].y, ghosts[i].x - 1) != 'w')//Left
               {
                   ghosts[i].currentCell = mapString[ghosts[i].y][ghosts[i].x - 1];
                   --ghosts[i].x;
-                  mapString[ghosts[i].y][ghosts[i].x] = ghosts[i].icon;
-                  mapString[ghosts[i].y][ghosts[i].x + 1] = ghosts[i].currentCell;
+                  SetYX(ghosts[i].y, ghosts[i].x, ghosts[i].icon);
+                  SetYX(ghosts[i].y, ghosts[i].x + 1, ghosts[i].currentCell);
                   continue;
               }
           }

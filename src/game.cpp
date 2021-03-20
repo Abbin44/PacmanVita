@@ -112,35 +112,36 @@ void Game::StartGame()
             map.pacmanPos.x = 19;
             map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'Y');
             map.pacmanPos.rotation = 2;
-            break;
         }
-
-        switch (map.GetYX(map.pacmanPos.y, map.pacmanPos.x - 1))
+        else
         {
-          case 'w': break;
-          case 'p':
-            --totalPellets;
-            ++score;
-            map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'e');
-            --map.pacmanPos.x;
-            map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'Y');
-            map.pacmanPos.rotation = 2;
-            break;
-          case 's': //Special pellet
-            --totalPellets;
-            ++score;
-            map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'e');
-            --map.pacmanPos.x;
-            map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'Y');
-            map.pacmanPos.rotation = 2;
-            break;
-          case 'e'://Empty
-            map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'e');
-            --map.pacmanPos.x;
-            map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'Y');
-            map.pacmanPos.rotation = 2;
-            break;
-          default: break;
+          switch (map.GetYX(map.pacmanPos.y, map.pacmanPos.x - 1))
+          {
+            case 'w': break;
+            case 'p':
+              --totalPellets;
+              ++score;
+              map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'e');
+              --map.pacmanPos.x;
+              map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'Y');
+              map.pacmanPos.rotation = 2;
+              break;
+            case 's': //Special pellet
+              --totalPellets;
+              ++score;
+              map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'e');
+              --map.pacmanPos.x;
+              map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'Y');
+              map.pacmanPos.rotation = 2;
+              break;
+            case 'e'://Empty
+              map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'e');
+              --map.pacmanPos.x;
+              map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'Y');
+              map.pacmanPos.rotation = 2;
+              break;
+            default: break;
+          }
         }
       }
       else if(ctrl.buttons & SCE_CTRL_RIGHT)//Move to the right
@@ -151,35 +152,36 @@ void Game::StartGame()
             map.pacmanPos.x = 0;
             map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'Y');
             map.pacmanPos.rotation = 1;
-            break;
         }
-
-        switch (map.GetYX(map.pacmanPos.y, map.pacmanPos.x + 1))
+        else
         {
-          case 'w': break;
-          case 'p':
-            --totalPellets;
-            ++score;
-            map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'e');
-            ++map.pacmanPos.x;
-            map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'Y');
-            map.pacmanPos.rotation = 1;
-            break;
-          case 's': //Special pellet
-            --totalPellets;
-            ++score;
-            map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'e');
-            ++map.pacmanPos.x;
-            map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'Y');
-            map.pacmanPos.rotation = 1;
-            break;
-          case 'e':
-            map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'e');
-            ++map.pacmanPos.x;
-            map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'Y');
-            map.pacmanPos.rotation = 1;
-            break;
-          default: break;
+          switch (map.GetYX(map.pacmanPos.y, map.pacmanPos.x + 1))
+          {
+            case 'w': break;
+            case 'p':
+              --totalPellets;
+              ++score;
+              map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'e');
+              ++map.pacmanPos.x;
+              map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'Y');
+              map.pacmanPos.rotation = 1;
+              break;
+            case 's': //Special pellet
+              --totalPellets;
+              ++score;
+              map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'e');
+              ++map.pacmanPos.x;
+              map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'Y');
+              map.pacmanPos.rotation = 1;
+              break;
+            case 'e':
+              map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'e');
+              ++map.pacmanPos.x;
+              map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'Y');
+              map.pacmanPos.rotation = 1;
+              break;
+            default: break;
+          }
         }
       }
 

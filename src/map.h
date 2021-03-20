@@ -33,9 +33,6 @@ public:
   };
   int tileUnitSize = 25;//The size of one unit
   Character pacmanPos;
-  Character ghosts[0];
-  Character ghosts[1];
-  Character ghosts[2];
   Character ghosts[4];
   vita2d_texture *pacmanSR = vita2d_load_PNG_file("app0:assets/pacmanR.png");
   vita2d_texture *pacmanSL = vita2d_load_PNG_file("app0:assets/pacmanL.png");
@@ -163,70 +160,147 @@ public:
   {
       for (size_t i = 0; i < 4; ++i)
       {
-          if(pacmanPos.y > ghosts[i].y)
+          if(pacmanPos.y > ghosts[i].y)//If pacman is below the ghost
           {
-              if(GetYX(ghosts[i].y + 1, ghosts[i].x) != 'w') //Down
+              if(pacmanPos.x > ghosts[i].x)
               {
-                  ghosts[i].currentCell = GetYX(ghosts[i].y + 1, ghosts[i].x);
-                  ++ghosts[i].y;
-                  SetYX(ghosts[i].y, ghosts[i].x, ghosts[i].icon);
-                  SetYX(ghosts[i].y - 1, ghosts[i].x, ghosts[i].currentCell);
-                  continue;
-              }
-
-              if(GetYX(ghosts[i].y - 1, ghosts[i].x) != 'w')//Up
-              {
-                  ghosts[i].currentCell = GetYX(ghosts[i].y - 1, ghosts[i].x);
-                  --ghosts[i].y;
-                  SetYX(ghosts[i].y, ghosts[i].x, ghosts[i].icon);
-                  SetYX(ghosts[i].y + 1, ghosts[i].x, ghosts[i].currentCell);
-                  continue;
-              }
-
-              if(GetYX(ghosts[i].y, ghosts[i].x + 1) != 'w')//Right
-              {
-                  ghosts[i].currentCell = GetYX(ghosts[i].y, ghosts[i].x + 1);
-                  ++ghosts[i].x;
-                  SetYX(ghosts[i].y, ghosts[i].x, ghosts[i].icon);
-                  SetYX(ghosts[i].y, ghosts[i].x - 1, ghosts[i].currentCell);
-                  continue;
-              }
-
-              if(GetYX(ghosts[i].y, ghosts[i].x - 1) != 'w')//Left
-              {
-                  ghosts[i].currentCell = GetYX(ghosts[i].y, ghosts[i].x - 1);
-                  --ghosts[i].x;
-                  SetYX(ghosts[i].y, ghosts[i].x, ghosts[i].icon);
-                  SetYX(ghosts[i].y, ghosts[i].x + 1, ghosts[i].currentCell);
-                  continue;
-              }
+                  if(GetYX(ghosts[i].y + 1, ghosts[i].x) != 'w' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'R' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'G' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'O' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'P') //Down
+                  {
+                      Move(ghosts[i], true, 1);
+                      continue;
+                    }
+                    if(GetYX(ghosts[i].y, ghosts[i].x + 1) != 'w' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'R' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'G' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'O' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'P')//Right
+                    {
+                      Move(ghosts[i], false, 1);
+                      continue;
+                    }
+                    if(GetYX(ghosts[i].y, ghosts[i].x - 1) != 'w' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'R' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'G' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'O' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'P')//Left
+                    {
+                      Move(ghosts[i], false, -1);
+                      continue;
+                    }
+                    if(GetYX(ghosts[i].y - 1, ghosts[i].x) != 'w' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'R' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'G' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'O' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'P')//Up
+                    {
+                      Move(ghosts[i], true, -1);
+                      continue;
+                    }
+                  }
+                  else
+                  {
+                      if(GetYX(ghosts[i].y + 1, ghosts[i].x) != 'w' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'R' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'G' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'O' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'P') //Down
+                      {
+                        Move(ghosts[i], true, 1);
+                        continue;
+                      }
+                      if(GetYX(ghosts[i].y, ghosts[i].x - 1) != 'w' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'R' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'G' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'O' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'P')//Left
+                      {
+                        Move(ghosts[i], false, -1);
+                        continue;
+                      }
+                      if(GetYX(ghosts[i].y, ghosts[i].x + 1) != 'w' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'R' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'G' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'O' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'P')//Right
+                      {
+                        Move(ghosts[i], false, 1);
+                        continue;
+                      }
+                      if(GetYX(ghosts[i].y - 1, ghosts[i].x) != 'w' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'R' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'G' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'O' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'P')//Up
+                      {
+                        Move(ghosts[i], true, -1);
+                        continue;
+                      }
+                  }
           }
-      }
+          else if(pacmanPos.y < ghosts[i].y)//If pacman is above the ghost
+          {
+            if(pacmanPos.x < ghosts[i].x)
+            {
+                if(GetYX(ghosts[i].y - 1, ghosts[i].x) != 'w' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'R' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'G' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'O' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'P')//Up
+                {
+                  Move(ghosts[i], true, -1);
+                  continue;
+                }
+                if(GetYX(ghosts[i].y, ghosts[i].x - 1) != 'w' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'R' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'G' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'O' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'P')//Left
+                {
+                  Move(ghosts[i], false, -1);
+                  continue;
+                }
+                if(GetYX(ghosts[i].y, ghosts[i].x + 1) != 'w' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'R' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'G' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'O' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'P')//Right
+                {
+                  Move(ghosts[i], false, 1);
+                  continue;
+                }
+                if(GetYX(ghosts[i].y + 1, ghosts[i].x) != 'w' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'R' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'G' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'O' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'P') //Down
+                {
+                  Move(ghosts[i], true, 1);
+                  continue;
+                }
+            }
+            else
+            {
+                if(GetYX(ghosts[i].y - 1, ghosts[i].x) != 'w' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'R' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'G' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'O' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'P')//Up
+                {
+                  Move(ghosts[i], true, -1);
+                  continue;
+                }
+                if(GetYX(ghosts[i].y, ghosts[i].x + 1) != 'w' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'R' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'G' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'O' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'P')//Right
+                {
+                  Move(ghosts[i], false, 1);
+                  continue;
+                }
+                if(GetYX(ghosts[i].y, ghosts[i].x - 1) != 'w' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'R' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'G' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'O' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'P')//Left
+                {
+                  Move(ghosts[i], false, -1);
+                  continue;
+                }
+                if(GetYX(ghosts[i].y + 1, ghosts[i].x) != 'w' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'R' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'G' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'O' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'P') //Down
+                {
+                  Move(ghosts[i], true, 1);
+                  continue;
+                }
+             }
+          }
+       }
+    }
 
-    void Move(Character ghost, bool isYAxis, int step)
+    void Move(Character& ghost, bool isYAxis, int step)
     {
         if(isYAxis)
         {
-            if(step < 0)
+            if(step < 0 && ghost.lastDirection != 'D')
+            {
               ghost.currentCell = GetYX(ghost.y - 1, ghost.x);
-            else
+              ghost.y = ghost.y + step;
+              SetYX(ghost.y, ghost.x, ghost.icon);
+              SetYX(ghost.y + 1, ghost.x, ghost.currentCell);
+              ghost.lastDirection = 'U';
+            }
+            else if(step > 0 && ghost.lastDirection != 'U')
+            {
               ghost.currentCell = GetYX(ghost.y + 1, ghost.x);
-
-            ghost.y + step;
-            SetYX(ghost.y, ghost.x, ghost.icon);
-            SetYX(ghost.y, ghost.x, ghost.currentCell);
+              ghost.y = ghost.y + step;
+              SetYX(ghost.y, ghost.x, ghost.icon);
+              SetYX(ghost.y - 1, ghost.x, ghost.currentCell);
+              ghost.lastDirection = 'D';
+            }
         }
         else
         {
-            if(step < 0)
-              ghost.currentCell = GetYX(ghost.y, ghost.x - 1);
-            else
-              ghost.currentCell = GetYX(ghost.y, ghost.x + 1);
+            if(step < 0 && ghost.lastDirection != 'R')
+            {
+                ghost.currentCell = GetYX(ghost.y, ghost.x - 1);
+                ghost.x = ghost.x + step;
+                SetYX(ghost.y, ghost.x, ghost.icon);
+                SetYX(ghost.y, ghost.x + 1, ghost.currentCell);
+                ghost.lastDirection = 'L';
+            }
+            else if(step > 0 && ghost.lastDirection != 'L')
+            {
+                ghost.currentCell = GetYX(ghost.y, ghost.x + 1);
+                ghost.x = ghost.x + step;
+                SetYX(ghost.y, ghost.x, ghost.icon);
+                SetYX(ghost.y, ghost.x - 1, ghost.currentCell);
+                ghost.lastDirection = 'R';
+            }
 
-              ghost.x + step;
-              SetYX(ghost.y, ghost.x, ghost.icon);
-              SetYX(ghost.y, ghost.x, ghost.currentCell);
         }
     }
-  }
 };

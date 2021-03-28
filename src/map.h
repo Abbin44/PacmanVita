@@ -227,7 +227,7 @@ public:
                 else if(GetYX(ghosts[i].y - 1, ghosts[i].x) == 'w')
                   ghosts[i].lastDirection = ' ';
 
-                if(ContainsGhost(ghosts[i].y - 1, ghosts[i].x - 1) == false)//Left
+                if(ContainsGhost(ghosts[i].y, ghosts[i].x - 1) == false)//Left
                 {
                   Move(ghosts[i], false, -1);
                   continue;
@@ -269,7 +269,7 @@ public:
                 else if(GetYX(ghosts[i].y, ghosts[i].x + 1) == 'w')
                   ghosts[i].lastDirection = ' ';
 
-                if(ContainsGhost(ghosts[i].y, ghosts[i].x - 1) == false)//Left
+                if(ContainsGhost(ghosts[i].y, ghosts[i].x - 1) == false)//Left - 1
                 {
                   Move(ghosts[i], false, -1);
                   continue;

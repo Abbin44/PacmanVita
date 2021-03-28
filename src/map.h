@@ -162,100 +162,144 @@ public:
       {
           if(pacmanPos.y > ghosts[i].y)//If pacman is below the ghost
           {
-              if(pacmanPos.x > ghosts[i].x)
+              if(pacmanPos.x >= ghosts[i].x)
               {
-                  if(GetYX(ghosts[i].y + 1, ghosts[i].x) != 'w' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'R' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'G' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'O' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'P') //Down
-                  {
+                    if(GetYX(ghosts[i].y + 1, ghosts[i].x) != 'w' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'R' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'G' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'O' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'P') //Down
+                    {
                       Move(ghosts[i], true, 1);
                       continue;
                     }
-                    if(GetYX(ghosts[i].y, ghosts[i].x + 1) != 'w' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'R' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'G' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'O' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'P')//Right
+                    else if(GetYX(ghosts[i].y + 1, ghosts[i].x) == 'w' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'R' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'G' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'O' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'P')
+                      ghosts[i].lastDirection = ' ';
+
+                    if(GetYX(ghosts[i].y, ghosts[i].x + 1) != 'w' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'R' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'G' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'O' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'P')//Right
                     {
                       Move(ghosts[i], false, 1);
                       continue;
                     }
-                    if(GetYX(ghosts[i].y, ghosts[i].x - 1) != 'w' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'R' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'G' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'O' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'P')//Left
+                    else if(GetYX(ghosts[i].y, ghosts[i].x + 1) == 'w' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'R' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'G' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'O' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'P')
+                      ghosts[i].lastDirection = ' ';
+
+                    if(GetYX(ghosts[i].y, ghosts[i].x - 1) != 'w' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'R' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'G' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'O' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'P')//Left
                     {
                       Move(ghosts[i], false, -1);
                       continue;
                     }
-                    if(GetYX(ghosts[i].y - 1, ghosts[i].x) != 'w' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'R' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'G' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'O' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'P')//Up
+                    else if(GetYX(ghosts[i].y, ghosts[i].x - 1) == 'w' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'R' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'G' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'O' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'P')
+                      ghosts[i].lastDirection = ' ';
+
+                    if(GetYX(ghosts[i].y - 1, ghosts[i].x) != 'w' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'R' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'G' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'O' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'P')//Up
                     {
                       Move(ghosts[i], true, -1);
                       continue;
                     }
+                    else if(GetYX(ghosts[i].y - 1, ghosts[i].x) == 'w' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'R' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'G' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'O' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'P')
+                      ghosts[i].lastDirection = ' ';
                   }
                   else
                   {
-                      if(GetYX(ghosts[i].y + 1, ghosts[i].x) != 'w' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'R' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'G' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'O' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'P') //Down
+                      if(GetYX(ghosts[i].y + 1, ghosts[i].x) != 'w' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'R' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'G' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'O' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'P') //Down
                       {
                         Move(ghosts[i], true, 1);
                         continue;
                       }
-                      if(GetYX(ghosts[i].y, ghosts[i].x - 1) != 'w' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'R' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'G' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'O' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'P')//Left
+                      else if(GetYX(ghosts[i].y + 1, ghosts[i].x) == 'w' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'R' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'G' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'O' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'P')
+                        ghosts[i].lastDirection = ' ';
+
+                      if(GetYX(ghosts[i].y, ghosts[i].x - 1) != 'w' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'R' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'G' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'O' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'P')//Left
                       {
                         Move(ghosts[i], false, -1);
                         continue;
                       }
-                      if(GetYX(ghosts[i].y, ghosts[i].x + 1) != 'w' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'R' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'G' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'O' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'P')//Right
+                      else if(GetYX(ghosts[i].y, ghosts[i].x - 1) == 'w' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'R' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'G' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'O' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'P')
+                        ghosts[i].lastDirection = ' ';
+
+                      if(GetYX(ghosts[i].y, ghosts[i].x + 1) != 'w' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'R' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'G' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'O' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'P')//Right
                       {
                         Move(ghosts[i], false, 1);
                         continue;
                       }
-                      if(GetYX(ghosts[i].y - 1, ghosts[i].x) != 'w' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'R' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'G' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'O' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'P')//Up
+                      else if(GetYX(ghosts[i].y, ghosts[i].x + 1) == 'w' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'R' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'G' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'O' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'P')
+                        ghosts[i].lastDirection = ' ';
+
+                      if(GetYX(ghosts[i].y - 1, ghosts[i].x) != 'w' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'R' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'G' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'O' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'P')//Up
                       {
                         Move(ghosts[i], true, -1);
                         continue;
                       }
+                      else if(GetYX(ghosts[i].y - 1, ghosts[i].x) == 'w' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'R' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'G' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'O' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'P')
+                        ghosts[i].lastDirection = ' ';
                   }
           }
-          else if(pacmanPos.y < ghosts[i].y)//If pacman is above the ghost
+          else if(pacmanPos.y <= ghosts[i].y)//If pacman is above the ghost
           {
-            if(pacmanPos.x < ghosts[i].x)
+            if(pacmanPos.x <= ghosts[i].x)
             {
-                if(GetYX(ghosts[i].y - 1, ghosts[i].x) != 'w' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'R' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'G' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'O' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'P')//Up
+                if(GetYX(ghosts[i].y - 1, ghosts[i].x) != 'w' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'R' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'G' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'O' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'P')//Up
                 {
                   Move(ghosts[i], true, -1);
                   continue;
                 }
-                if(GetYX(ghosts[i].y, ghosts[i].x - 1) != 'w' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'R' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'G' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'O' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'P')//Left
+                else if(GetYX(ghosts[i].y - 1, ghosts[i].x) == 'w' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'R' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'G' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'O' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'P')
+                  ghosts[i].lastDirection = ' ';
+
+                if(GetYX(ghosts[i].y, ghosts[i].x - 1) != 'w' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'R' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'G' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'O' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'P')//Left
                 {
                   Move(ghosts[i], false, -1);
                   continue;
                 }
-                if(GetYX(ghosts[i].y, ghosts[i].x + 1) != 'w' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'R' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'G' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'O' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'P')//Right
+                else if(GetYX(ghosts[i].y, ghosts[i].x - 1) == 'w' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'R' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'G' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'O' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'P')
+                  ghosts[i].lastDirection = ' ';
+
+                if(GetYX(ghosts[i].y, ghosts[i].x + 1) != 'w' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'R' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'G' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'O' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'P')//Right
                 {
                   Move(ghosts[i], false, 1);
                   continue;
                 }
-                if(GetYX(ghosts[i].y + 1, ghosts[i].x) != 'w' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'R' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'G' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'O' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'P') //Down
+                else if(GetYX(ghosts[i].y, ghosts[i].x + 1) == 'w' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'R' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'G' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'O' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'P')
+                  ghosts[i].lastDirection = ' ';
+
+                if(GetYX(ghosts[i].y + 1, ghosts[i].x) != 'w' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'R' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'G' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'O' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'P') //Down
                 {
                   Move(ghosts[i], true, 1);
                   continue;
                 }
+                else if(GetYX(ghosts[i].y + 1, ghosts[i].x) == 'w' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'R' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'G' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'O' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'P')
+                  ghosts[i].lastDirection = ' ';
             }
             else
             {
-                if(GetYX(ghosts[i].y - 1, ghosts[i].x) != 'w' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'R' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'G' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'O' || GetYX(ghosts[i].y - 1, ghosts[i].x) != 'P')//Up
+                if(GetYX(ghosts[i].y - 1, ghosts[i].x) != 'w' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'R' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'G' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'O' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'P')//Up
                 {
                   Move(ghosts[i], true, -1);
                   continue;
                 }
-                if(GetYX(ghosts[i].y, ghosts[i].x + 1) != 'w' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'R' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'G' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'O' || GetYX(ghosts[i].y, ghosts[i].x + 1) != 'P')//Right
+                else if(GetYX(ghosts[i].y - 1, ghosts[i].x) == 'w' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'R' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'G' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'O' && GetYX(ghosts[i].y - 1, ghosts[i].x) != 'P')
+                  ghosts[i].lastDirection = ' ';
+
+                if(GetYX(ghosts[i].y, ghosts[i].x + 1) != 'w' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'R' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'G' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'O' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'P')//Right
                 {
                   Move(ghosts[i], false, 1);
                   continue;
                 }
-                if(GetYX(ghosts[i].y, ghosts[i].x - 1) != 'w' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'R' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'G' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'O' || GetYX(ghosts[i].y, ghosts[i].x - 1) != 'P')//Left
+                else if(GetYX(ghosts[i].y, ghosts[i].x + 1) == 'w' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'R' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'G' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'O' && GetYX(ghosts[i].y, ghosts[i].x + 1) != 'P')
+                  ghosts[i].lastDirection = ' ';
+
+                if(GetYX(ghosts[i].y, ghosts[i].x - 1) != 'w' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'R' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'G' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'O' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'P')//Left
                 {
                   Move(ghosts[i], false, -1);
                   continue;
                 }
-                if(GetYX(ghosts[i].y + 1, ghosts[i].x) != 'w' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'R' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'G' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'O' || GetYX(ghosts[i].y + 1, ghosts[i].x) != 'P') //Down
+                else if(GetYX(ghosts[i].y, ghosts[i].x - 1) == 'w' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'R' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'G' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'O' && GetYX(ghosts[i].y, ghosts[i].x - 1) != 'P')
+                  ghosts[i].lastDirection = ' ';
+
+                if(GetYX(ghosts[i].y + 1, ghosts[i].x) != 'w' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'R' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'G' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'O' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'P') //Down
                 {
                   Move(ghosts[i], true, 1);
                   continue;
                 }
+                else if(GetYX(ghosts[i].y + 1, ghosts[i].x) == 'w' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'R' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'G' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'O' && GetYX(ghosts[i].y + 1, ghosts[i].x) != 'P')
+                  ghosts[i].lastDirection = ' ';
              }
           }
        }

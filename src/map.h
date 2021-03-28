@@ -64,25 +64,21 @@ public:
           if(GetYX(i, j) == 'w')
           {
             vita2d_draw_rectangle(x, y, tileUnitSize, tileUnitSize, RGBA8(0, 0, 255, 255));
-            x += tileUnitSize;
               //Draw a wall
           }
           else if(GetYX(i, j) == 'p')
           {
             vita2d_draw_rectangle(x + 6, y + 6, tileUnitSize / 2, tileUnitSize / 2, RGBA8(255, 255, 255, 255));
-            x += tileUnitSize;
               //Draw a pellet
           }
           else if(GetYX(i, j) == 's')
           {
             vita2d_draw_rectangle(x + 6, y + 6, tileUnitSize / 2 + 4, tileUnitSize / 2 + 4, RGBA8(255, 0, 0, 255));
-            x += tileUnitSize;
               //Draw a special pellet
           }
           else if(GetYX(i, j) == 'e')
           {
             vita2d_draw_rectangle(x, y, tileUnitSize, tileUnitSize, RGBA8(0, 0, 0, 255));
-            x += tileUnitSize;
               //Draw empty space
           }
           else if(GetYX(i, j) == 'Y')//Pacman
@@ -106,36 +102,32 @@ public:
                 default:
                     break;
               }
-              x += tileUnitSize;
           }
           else if(GetYX(i, j) == 'B')//Blue Ghost
           {
               ghosts[0].y = i;
               ghosts[0].x = j;
               vita2d_draw_rectangle(ghosts[0].x * tileUnitSize + 213, ghosts[0].y * tileUnitSize, tileUnitSize, tileUnitSize, RGBA8(0, 225, 255, 255));
-              x += tileUnitSize;
           }
           else if(GetYX(i, j) == 'O')//Orange Ghost
           {
               ghosts[1].y = i;
               ghosts[1].x = j;
               vita2d_draw_rectangle(ghosts[1].x * tileUnitSize + 213, ghosts[1].y * tileUnitSize, tileUnitSize, tileUnitSize, RGBA8(255, 170, 40, 255));
-              x += tileUnitSize;
           }
           else if(GetYX(i, j) == 'P')//Pink Ghost
           {
               ghosts[2].y = i;
               ghosts[2].x = j;
               vita2d_draw_rectangle(ghosts[2].x * tileUnitSize + 213, ghosts[2].y * tileUnitSize, tileUnitSize, tileUnitSize, RGBA8(255, 115, 210, 255));
-              x += tileUnitSize;
           }
           else if(GetYX(i, j) == 'R')//Red Ghost
           {
               ghosts[3].y = i;
               ghosts[3].x = j;
               vita2d_draw_rectangle(ghosts[3].x * tileUnitSize + 213, ghosts[3].y * tileUnitSize, tileUnitSize, tileUnitSize, RGBA8(255, 0, 0, 255));
-              x += tileUnitSize;
           }
+          x += tileUnitSize;
         }
         y += tileUnitSize;
         x = 213;
@@ -144,17 +136,6 @@ public:
       y = 0;
   }
 
-
-  /*
-  -536496295
-  20110006750
-  201359368
-  1
-  0
-  0
-  0
-  0
-  */
   void MoveGhosts()
   {
       for (size_t i = 0; i < 4; ++i)
@@ -306,39 +287,31 @@ public:
 
     void Move(Character& ghost, bool isYAxis, int step)
     {
-        if(isYAxis)
-        {
-            if(step < 0 && ghost.lastDirection != 'D')
-            {
-              if(GetYX(ghost.y - 1, ghost.x) != 'w' && GetYX(ghost.y - 1, ghost.x) != 'R' && GetYX(ghost.y - 1, ghost.x) != 'B' && GetYX(ghost.y - 1, ghost.x) != 'O' && GetYX(ghost.y - 1, ghost.x) != 'P')
-                ghost.currentCell = GetYX(ghost.y - 1, ghost.x);
-
+      if(isYAxis)
+      {
+          if(step < 0 && ghost.lastDirection != 'D' || step > 0 && ghost.lastDirection != 'U')
+          {
               SetYX(ghost.y, ghost.x, ghost.currentCell);
+              char targetLocation = GetYX(ghost.y + step, ghost.x);
+              if(targetLocation != 'w' && targetLocation != 'R' && targetLocation != 'B' && targetLocation != 'O' && targetLocation != 'P')
+                 ghost.currentCell = targetLocation;
               ghost.y = ghost.y + step;
               SetYX(ghost.y, ghost.x, ghost.icon);
-              SetYX(ghost.y + 1, ghost.x, ghost.currentCell);
-              ghost.lastDirection = 'U';
-            }
-            else if(step > 0 && ghost.lastDirection != 'U')
-            {
-              if(GetYX(ghost.y + 1, ghost.x) != 'w' && GetYX(ghost.y + 1, ghost.x) != 'R' && GetYX(ghost.y + 1, ghost.x) != 'B' && GetYX(ghost.y + 1, ghost.x) != 'O' && GetYX(ghost.y + 1, ghost.x) != 'P')
-                ghost.currentCell = GetYX(ghost.y + 1, ghost.x);
-
-              SetYX(ghost.y, ghost.x, ghost.currentCell);
-              ghost.y = ghost.y + step;
-              SetYX(ghost.y, ghost.x, ghost.icon);
-              SetYX(ghost.y - 1, ghost.x, ghost.currentCell);
-              ghost.lastDirection = 'D';
+              SetYX(ghost.y - step, ghost.x, ghost.currentCell);
+              if( step < 0 )
+                ghost.lastDirection = 'U';
+              else
+                ghost.lastDirection = 'D';
             }
         }
         else
         {
             if(step < 0 && ghost.lastDirection != 'R')
             {
+                SetYX(ghost.y, ghost.x, ghost.currentCell);
                 if(GetYX(ghost.y, ghost.x - 1) != 'w' && GetYX(ghost.y, ghost.x - 1) != 'R' && GetYX(ghost.y, ghost.x - 1) != 'B' && GetYX(ghost.y, ghost.x - 1) != 'O' && GetYX(ghost.y, ghost.x - 1) != 'P')//Left
                   ghost.currentCell = GetYX(ghost.y, ghost.x - 1);
 
-                SetYX(ghost.y, ghost.x, ghost.currentCell);
                 ghost.x = ghost.x + step;
                 SetYX(ghost.y, ghost.x, ghost.icon);
                 SetYX(ghost.y, ghost.x + 1, ghost.currentCell);
@@ -346,10 +319,10 @@ public:
             }
             else if(step > 0 && ghost.lastDirection != 'L')
             {
+                SetYX(ghost.y, ghost.x, ghost.currentCell);
                 if(GetYX(ghost.y, ghost.x + 1) != 'w' && GetYX(ghost.y, ghost.x + 1) != 'R' && GetYX(ghost.y, ghost.x + 1) != 'B' && GetYX(ghost.y, ghost.x + 1) != 'O' && GetYX(ghost.y, ghost.x + 1) != 'P')//Right
                   ghost.currentCell = GetYX(ghost.y, ghost.x + 1);
 
-                SetYX(ghost.y, ghost.x, ghost.currentCell);
                 ghost.x = ghost.x + step;
                 SetYX(ghost.y, ghost.x, ghost.icon);
                 SetYX(ghost.y, ghost.x - 1, ghost.currentCell);

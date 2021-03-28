@@ -112,7 +112,7 @@ public:
           {
               ghosts[0].y = i;
               ghosts[0].x = j;
-              vita2d_draw_rectangle(ghosts[0].x * tileUnitSize + 213, ghosts[0].y * tileUnitSize, tileUnitSize, tileUnitSize, RGBA8(0, 225, 255 255));
+              vita2d_draw_rectangle(ghosts[0].x * tileUnitSize + 213, ghosts[0].y * tileUnitSize, tileUnitSize, tileUnitSize, RGBA8(0, 225, 255, 255));
               x += tileUnitSize;
           }
           else if(GetYX(i, j) == 'O')//Orange Ghost
@@ -313,6 +313,7 @@ public:
               if(GetYX(ghost.y - 1, ghost.x) != 'w' && GetYX(ghost.y - 1, ghost.x) != 'R' && GetYX(ghost.y - 1, ghost.x) != 'B' && GetYX(ghost.y - 1, ghost.x) != 'O' && GetYX(ghost.y - 1, ghost.x) != 'P')
                 ghost.currentCell = GetYX(ghost.y - 1, ghost.x);
 
+              SetYX(ghost.y, ghost.x, ghost.currentCell);
               ghost.y = ghost.y + step;
               SetYX(ghost.y, ghost.x, ghost.icon);
               SetYX(ghost.y + 1, ghost.x, ghost.currentCell);
@@ -323,6 +324,7 @@ public:
               if(GetYX(ghost.y + 1, ghost.x) != 'w' && GetYX(ghost.y + 1, ghost.x) != 'R' && GetYX(ghost.y + 1, ghost.x) != 'B' && GetYX(ghost.y + 1, ghost.x) != 'O' && GetYX(ghost.y + 1, ghost.x) != 'P')
                 ghost.currentCell = GetYX(ghost.y + 1, ghost.x);
 
+              SetYX(ghost.y, ghost.x, ghost.currentCell);
               ghost.y = ghost.y + step;
               SetYX(ghost.y, ghost.x, ghost.icon);
               SetYX(ghost.y - 1, ghost.x, ghost.currentCell);
@@ -336,6 +338,7 @@ public:
                 if(GetYX(ghost.y, ghost.x - 1) != 'w' && GetYX(ghost.y, ghost.x - 1) != 'R' && GetYX(ghost.y, ghost.x - 1) != 'B' && GetYX(ghost.y, ghost.x - 1) != 'O' && GetYX(ghost.y, ghost.x - 1) != 'P')//Left
                   ghost.currentCell = GetYX(ghost.y, ghost.x - 1);
 
+                SetYX(ghost.y, ghost.x, ghost.currentCell);
                 ghost.x = ghost.x + step;
                 SetYX(ghost.y, ghost.x, ghost.icon);
                 SetYX(ghost.y, ghost.x + 1, ghost.currentCell);
@@ -346,6 +349,7 @@ public:
                 if(GetYX(ghost.y, ghost.x + 1) != 'w' && GetYX(ghost.y, ghost.x + 1) != 'R' && GetYX(ghost.y, ghost.x + 1) != 'B' && GetYX(ghost.y, ghost.x + 1) != 'O' && GetYX(ghost.y, ghost.x + 1) != 'P')//Right
                   ghost.currentCell = GetYX(ghost.y, ghost.x + 1);
 
+                SetYX(ghost.y, ghost.x, ghost.currentCell);
                 ghost.x = ghost.x + step;
                 SetYX(ghost.y, ghost.x, ghost.icon);
                 SetYX(ghost.y, ghost.x - 1, ghost.currentCell);

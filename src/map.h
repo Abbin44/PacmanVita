@@ -295,10 +295,11 @@ public:
               char targetLocation = GetYX(ghost.y + step, ghost.x);
               if(targetLocation != 'w' && targetLocation != 'R' && targetLocation != 'B' && targetLocation != 'O' && targetLocation != 'P')
                  ghost.currentCell = targetLocation;
+
               ghost.y = ghost.y + step;
               SetYX(ghost.y, ghost.x, ghost.icon);
-              SetYX(ghost.y - step, ghost.x, ghost.currentCell);
-              if( step < 0 )
+
+              if(step < 0)
                 ghost.lastDirection = 'U';
               else
                 ghost.lastDirection = 'D';
@@ -306,29 +307,21 @@ public:
         }
         else
         {
-            if(step < 0 && ghost.lastDirection != 'R')
+            if(step < 0 && ghost.lastDirection != 'L' || step > 0 && ghost.lastDirection != 'R')
             {
                 SetYX(ghost.y, ghost.x, ghost.currentCell);
-                if(GetYX(ghost.y, ghost.x - 1) != 'w' && GetYX(ghost.y, ghost.x - 1) != 'R' && GetYX(ghost.y, ghost.x - 1) != 'B' && GetYX(ghost.y, ghost.x - 1) != 'O' && GetYX(ghost.y, ghost.x - 1) != 'P')//Left
-                  ghost.currentCell = GetYX(ghost.y, ghost.x - 1);
+                char targetLocation = GetYX(ghost.y, ghost.x + step);
+                if(targetLocation != 'w' && targetLocation != 'R' && targetLocation != 'B' && targetLocation != 'O' && targetLocation != 'P')
+                  ghost.currentCell = targetLocation;
 
                 ghost.x = ghost.x + step;
                 SetYX(ghost.y, ghost.x, ghost.icon);
-                SetYX(ghost.y, ghost.x + 1, ghost.currentCell);
-                ghost.lastDirection = 'L';
-            }
-            else if(step > 0 && ghost.lastDirection != 'L')
-            {
-                SetYX(ghost.y, ghost.x, ghost.currentCell);
-                if(GetYX(ghost.y, ghost.x + 1) != 'w' && GetYX(ghost.y, ghost.x + 1) != 'R' && GetYX(ghost.y, ghost.x + 1) != 'B' && GetYX(ghost.y, ghost.x + 1) != 'O' && GetYX(ghost.y, ghost.x + 1) != 'P')//Right
-                  ghost.currentCell = GetYX(ghost.y, ghost.x + 1);
 
-                ghost.x = ghost.x + step;
-                SetYX(ghost.y, ghost.x, ghost.icon);
-                SetYX(ghost.y, ghost.x - 1, ghost.currentCell);
-                ghost.lastDirection = 'R';
+                if(step < 0)
+                  ghost.lastDirection = 'L';
+                else
+                  ghost.lastDirection = 'R';
             }
-
         }
     }
 };

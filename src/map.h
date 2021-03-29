@@ -16,9 +16,9 @@ public:
     "wpwwpwpwwwwwpwpwwpw",
     "wppppwpppwpppwppppw",
     "wwwwpwwwewewwwpwwww",
-    "eeewpweeeReeewpweee",
+    "eeewpweeeeeeewpweee",
     "wwwwpwewwewwewpwwww",
-    "eeeepeewBPOweepeeee",
+    "eeeepeeweeeweepeeee",
     "wwwwpwewwwwwewpwwww",
     "eeewpweeeeeeewpweee",
     "wwwwpwewwwwwewpwwww",
@@ -89,7 +89,7 @@ public:
       return false;
   }
 
-  void GenerateMap()
+  void DrawMap()
   {
       for (size_t i = 0; i < 21; ++i)
       {
@@ -133,30 +133,11 @@ public:
                     break;
               }
           }
-          else if(GetYX(i, j) == 'B')//Blue Ghost
-          {
-              ghosts[0].y = i;
-              ghosts[0].x = j;
-              vita2d_draw_rectangle(ghosts[0].x * tileUnitSize + 213, ghosts[0].y * tileUnitSize, tileUnitSize, tileUnitSize, RGBA8(0, 225, 255, 255));
-          }
-          else if(GetYX(i, j) == 'O')//Orange Ghost
-          {
-              ghosts[1].y = i;
-              ghosts[1].x = j;
-              vita2d_draw_rectangle(ghosts[1].x * tileUnitSize + 213, ghosts[1].y * tileUnitSize, tileUnitSize, tileUnitSize, RGBA8(255, 170, 40, 255));
-          }
-          else if(GetYX(i, j) == 'P')//Pink Ghost
-          {
-              ghosts[2].y = i;
-              ghosts[2].x = j;
-              vita2d_draw_rectangle(ghosts[2].x * tileUnitSize + 213, ghosts[2].y * tileUnitSize, tileUnitSize, tileUnitSize, RGBA8(255, 115, 210, 255));
-          }
-          else if(GetYX(i, j) == 'R')//Red Ghost
-          {
-              ghosts[3].y = i;
-              ghosts[3].x = j;
-              vita2d_draw_rectangle(ghosts[3].x * tileUnitSize + 213, ghosts[3].y * tileUnitSize, tileUnitSize, tileUnitSize, RGBA8(255, 0, 0, 255));
-          }
+
+          vita2d_draw_rectangle(ghosts[0].x * tileUnitSize + 213, ghosts[0].y * tileUnitSize, tileUnitSize, tileUnitSize, RGBA8(0, 225, 255, 255));
+          vita2d_draw_rectangle(ghosts[1].x * tileUnitSize + 213, ghosts[1].y * tileUnitSize, tileUnitSize, tileUnitSize, RGBA8(255, 170, 40, 255));
+          vita2d_draw_rectangle(ghosts[2].x * tileUnitSize + 213, ghosts[2].y * tileUnitSize, tileUnitSize, tileUnitSize, RGBA8(255, 115, 210, 255));
+          vita2d_draw_rectangle(ghosts[3].x * tileUnitSize + 213, ghosts[3].y * tileUnitSize, tileUnitSize, tileUnitSize, RGBA8(255, 0, 0, 255));
           x += tileUnitSize;
         }
         y += tileUnitSize;

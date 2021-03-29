@@ -18,10 +18,18 @@ void Game::StartGame()
     pgf = vita2d_load_default_pgf();
     Map map;
     map.ghosts[0].icon = 'R';
-    map.ghosts[1].icon = 'G';
+    map.ghosts[1].icon = 'B';
     map.ghosts[2].icon = 'O';
     map.ghosts[3].icon = 'P';
 
+    map.ghosts[0].x = 9;
+    map.ghosts[0].y = 7;
+    map.ghosts[1].x = 8;
+    map.ghosts[1].y = 9;
+    map.ghosts[2].x = 10;
+    map.ghosts[2].y = 9;
+    map.ghosts[3].x = 9;
+    map.ghosts[3].y = 9;
     Screen screen;
 
     SceCtrlData ctrl;
@@ -188,7 +196,7 @@ void Game::StartGame()
       if (ctrl.buttons & SCE_CTRL_SELECT) //Exit
   			break;
 
-        map.GenerateMap();
+        map.DrawMap();
         map.MoveGhosts();
 
         vita2d_end_drawing();

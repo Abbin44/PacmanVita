@@ -194,7 +194,6 @@ public:
               }
               else
               {
-                  TryMove(ghosts[i], -1, 0);
                   TryMove(ghosts[i], 0, 1);
                   TryMove(ghosts[i], 0, -1);
               }

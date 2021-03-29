@@ -157,8 +157,8 @@ public:
               }
               else
               {
-                  if(TryMove(ghosts[i], 0, -1));
-                  if(TryMove(ghosts[i], 0, 1));
+                  if(TryMove(ghosts[i], 0, -1)) continue;
+                  if(TryMove(ghosts[i], 0, 1)) continue;
               }
               if(TryMove(ghosts[i], -1, 0)) continue;
           }
@@ -177,11 +177,7 @@ public:
               }
               if(TryMove(ghosts[i], 1, 0)) continue;
           }
-          else if(ContainsWall(ghost.y + yStep, ghost.x + xStep) == true || ContainsGhost(ghost.y + yStep, ghost.x + xStep) == true)
-          {
-              ghost.lastDirection = ' ';
-              return;
-          }
+          ghosts[i].lastDirection = ' ';
        }
     }
 

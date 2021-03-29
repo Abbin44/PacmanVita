@@ -208,3 +208,8 @@ void Game::StartGame()
     }
     vita2d_fini();
 }
+
+void MovePacman(Character& pacman, int yStep, int xStep, int rotation)
+{
+
+}

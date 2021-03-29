@@ -75,14 +75,25 @@ public:
   {
       if(ContainsGhost(ghost.y + yStep, ghost.x + xStep) == false && ContainsWall(ghost.y + yStep, ghost.x + xStep) == false) //Down
       {
+          if(ghost.y + yStep < 0 || ghost.y + yStep > 20 || ghost.x + xStep < 0 || ghosts.x + xStep > 20)
+          {
+              ghost.lastDirection = ' ';
+              return false;
+          }
           if(yStep > 0 || yStep < 0)
             return Move(ghost, true, yStep);
           else
             return Move(ghost, false, xStep);
-          return true;
       }
-      else
         return false;
+  }
+
+  bool isInStartingArea(Character& ghost)
+  {
+      if(ghost.y >= 8 && ghost.y <= 10 && ghost.x >= 7 && ghost.x <= 11)
+        return true;
+
+      return false;
   }
 
   void DrawMap()
@@ -148,35 +159,88 @@ public:
       for (size_t i = 0; i < 4; ++i)
       {
           bool didMove = false;
+          if(isInStartingArea(ghosts[i]))
+          {
+              if(TryMove(ghosts[i], -1, 0))
+                continue;
+          }
           if(pacmanPos.y > ghosts[i].y)//If pacman is below the ghost
           {
-              if(TryMove(ghosts[i], 1, 0)) didMove = true;
+              if(TryMove(ghosts[i], 1, 0))
+              {
+                didMove = true;
+                continue;
+              }
               if(pacmanPos.x >= ghosts[i].x)
               {
-                  if(TryMove(ghosts[i], 0, 1)) didMove = true;
-                  if(TryMove(ghosts[i], 0, -1)) didMove = true;
+                  if(TryMove(ghosts[i], 0, 1))
+                  {
+                    didMove = true;
+                    continue;
+                  }
+                  if(TryMove(ghosts[i], 0, -1))
+                  {
+                    didMove = true;
+                    continue;
+                  }
               }
               else
               {
-                  if(TryMove(ghosts[i], 0, -1)) didMove = true;
-                  if(TryMove(ghosts[i], 0, 1)) didMove = true;
+                  if(TryMove(ghosts[i], 0, -1))
+                  {
+                    didMove = true;
+                    continue;
+                  }
+                  if(TryMove(ghosts[i], 0, 1))
+                  {
+                    didMove = true;
+                    continue;
+                  }
               }
-              if(TryMove(ghosts[i], -1, 0)) didMove = true;
+              if(TryMove(ghosts[i], -1, 0))
+              {
+                didMove = true;
+                continue;
+              }
           }
           else if(pacmanPos.y <= ghosts[i].y)//If pacman is above the ghost
           {
-              if(TryMove(ghosts[i], -1, 0)) didMove = true;
+              if(TryMove(ghosts[i], -1, 0))
+              {
+                didMove = true;
+                continue;
+              }
               if(pacmanPos.x <= ghosts[i].x)
               {
-                  if(TryMove(ghosts[i], 0, -1)) didMove = true;
-                  if(TryMove(ghosts[i], 0, 1)) didMove = true;
+                  if(TryMove(ghosts[i], 0, -1))
+                  {
+                    didMove = true;
+                    continue;
+                  }
+                  if(TryMove(ghosts[i], 0, 1))
+                  {
+                    didMove = true;
+                    continue;
+                  }
               }
               else
               {
-                  if(TryMove(ghosts[i], 0, 1)) didMove = true;
-                  if(TryMove(ghosts[i], 0, -1)) didMove = true;
+                  if(TryMove(ghosts[i], 0, 1))
+                  {
+                    didMove = true;
+                    continue;
+                  }
+                  if(TryMove(ghosts[i], 0, -1))
+                  {
+                    didMove = true;
+                    continue;
+                  }
               }
-              if(TryMove(ghosts[i], 1, 0)) didMove = true;
+              if(TryMove(ghosts[i], 1, 0))
+              {
+                didMove = true;
+                continue;
+              }
           }
 
           if(!didMove)
@@ -202,7 +266,7 @@ public:
       }
       else
       {
-          if(step < 0 && ghost.lastDirection != 'L' || step > 0 && ghost.lastDirection != 'R')
+          if(step < 0 && ghost.lastDirection != 'R' || step > 0 && ghost.lastDirection != 'L')
           {
               ghost.x = ghost.x + step;
 

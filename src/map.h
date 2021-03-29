@@ -78,14 +78,15 @@ public:
           if(yStep > 0 || yStep < 0)
             Move(ghost, true, yStep);
           else
-            Move(ghost, false, xStep)
+            Move(ghost, false, xStep);
           return true;
       }
-      else if(GetYX(ghosts[i].y + yStep, ghosts[i].x + xStep) == 'w')
+      else if(ContainsWall(ghost.y + yStep, ghost.x + xStep) == true)
       {
           ghost.lastDirection = ' ';
           return false;
       }
+      return false;
   }
 
   void GenerateMap()
@@ -210,7 +211,7 @@ public:
           {
               SetYX(ghost.y, ghost.x, ghost.currentCell);
               char targetLocation = GetYX(ghost.y + step, ghost.x);
-              if(targetLocation != 'w' && targetLocation != 'R' && targetLocation != 'B' && targetLocation != 'O' && targetLocation != 'P')
+              if(ContainsWall(ghost.y + step, ghost.x) == false && ContainsGhost(ghost.y + step, ghost.x) == false)
                  ghost.currentCell = targetLocation;
 
               ghost.y = ghost.y + step;
@@ -221,24 +222,24 @@ public:
               else
                 ghost.lastDirection = 'D';
             }
-        }
-        else
-        {
-            if(step < 0 && ghost.lastDirection != 'L' || step > 0 && ghost.lastDirection != 'R')
-            {
-                SetYX(ghost.y, ghost.x, ghost.currentCell);
-                char targetLocation = GetYX(ghost.y, ghost.x + step);
-                if(targetLocation != 'w' && targetLocation != 'R' && targetLocation != 'B' && targetLocation != 'O' && targetLocation != 'P')
-                  ghost.currentCell = targetLocation;
+      }
+      else
+      {
+          if(step < 0 && ghost.lastDirection != 'L' || step > 0 && ghost.lastDirection != 'R')
+          {
+              SetYX(ghost.y, ghost.x, ghost.currentCell);
+              char targetLocation = GetYX(ghost.y, ghost.x + step);
+              if(ContainsWall(ghost.y + step, ghost.x) == false && ContainsGhost(ghost.y + step, ghost.x) == false)
+                ghost.currentCell = targetLocation;
 
-                ghost.x = ghost.x + step;
-                SetYX(ghost.y, ghost.x, ghost.icon);
+              ghost.x = ghost.x + step;
+              SetYX(ghost.y, ghost.x, ghost.icon);
 
-                if(step < 0)
-                  ghost.lastDirection = 'L';
-                else
-                  ghost.lastDirection = 'R';
-            }
-        }
+              if(step < 0)
+                ghost.lastDirection = 'L';
+              else
+                ghost.lastDirection = 'R';
+          }
+      }
     }
 };

@@ -57,7 +57,7 @@ public:
 
   bool ContainsGhost(int y, int x)
   {
-      if(GetYX(y, x) == 'R' || GetYX(y, x) == 'B' || GetYX(y, x) == 'O' || GetYX(y, x) == 'P')
+      if(ghosts[0].y == y && ghosts[0].x == x || ghosts[1].y == y && ghosts[1].x == x || ghosts[2].y == y && ghosts[2].x == x || ghosts[3].y == y && ghosts[3].x == x)
         return true;
       else
         return false;
@@ -190,11 +190,6 @@ public:
       {
           if(step < 0 && ghost.lastDirection != 'D' || step > 0 && ghost.lastDirection != 'U')
           {
-              SetYX(ghost.y, ghost.x, ghost.currentCell);
-              char targetLocation = GetYX(ghost.y + step, ghost.x);
-              if(ContainsWall(ghost.y + step, ghost.x) == false && ContainsGhost(ghost.y + step, ghost.x) == false)
-                 ghost.currentCell = targetLocation;
-
               ghost.y = ghost.y + step;
               SetYX(ghost.y, ghost.x, ghost.icon);
 
@@ -202,17 +197,12 @@ public:
                 ghost.lastDirection = 'U';
               else
                 ghost.lastDirection = 'D';
-            }
+          }
       }
       else
       {
           if(step < 0 && ghost.lastDirection != 'L' || step > 0 && ghost.lastDirection != 'R')
           {
-              SetYX(ghost.y, ghost.x, ghost.currentCell);
-              char targetLocation = GetYX(ghost.y, ghost.x + step);
-              if(ContainsWall(ghost.y + step, ghost.x) == false && ContainsGhost(ghost.y + step, ghost.x) == false)
-                ghost.currentCell = targetLocation;
-
               ghost.x = ghost.x + step;
               SetYX(ghost.y, ghost.x, ghost.icon);
 

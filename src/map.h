@@ -76,9 +76,9 @@ public:
       if(ContainsGhost(ghost.y + yStep, ghost.x + xStep) == false && ContainsWall(ghost.y + yStep, ghost.x + xStep) == false) //Down
       {
           if(yStep > 0 || yStep < 0)
-            Move(ghost, true, yStep);
+            return Move(ghost, true, yStep);
           else
-            Move(ghost, false, xStep);
+            return Move(ghost, false, xStep);
           return true;
       }
       else
@@ -147,41 +147,44 @@ public:
   {
       for (size_t i = 0; i < 4; ++i)
       {
+          bool didMove = false;
           if(pacmanPos.y > ghosts[i].y)//If pacman is below the ghost
           {
-              if(TryMove(ghosts[i], 1, 01)) continue;
+              if(TryMove(ghosts[i], 1, 0)) didMove = true;
               if(pacmanPos.x >= ghosts[i].x)
               {
-                  if(TryMove(ghosts[i], 0, 1)) continue;
-                  if(TryMove(ghosts[i], 0, -1)) continue;
+                  if(TryMove(ghosts[i], 0, 1)) didMove = true;
+                  if(TryMove(ghosts[i], 0, -1)) didMove = true;
               }
               else
               {
-                  if(TryMove(ghosts[i], 0, -1)) continue;
-                  if(TryMove(ghosts[i], 0, 1)) continue;
+                  if(TryMove(ghosts[i], 0, -1)) didMove = true;
+                  if(TryMove(ghosts[i], 0, 1)) didMove = true;
               }
-              if(TryMove(ghosts[i], -1, 0)) continue;
+              if(TryMove(ghosts[i], -1, 0)) didMove = true;
           }
           else if(pacmanPos.y <= ghosts[i].y)//If pacman is above the ghost
           {
-              if(TryMove(ghosts[i], -1, 0)) continue;
+              if(TryMove(ghosts[i], -1, 0)) didMove = true;
               if(pacmanPos.x <= ghosts[i].x)
               {
-                  if(TryMove(ghosts[i], 0, -1)) continue;
-                  if(TryMove(ghosts[i], 0, 1)) continue;
+                  if(TryMove(ghosts[i], 0, -1)) didMove = true;
+                  if(TryMove(ghosts[i], 0, 1)) didMove = true;
               }
               else
               {
-                  if(TryMove(ghosts[i], 0, 1)) continue;
-                  if(TryMove(ghosts[i], 0, -1)) continue;
+                  if(TryMove(ghosts[i], 0, 1)) didMove = true;
+                  if(TryMove(ghosts[i], 0, -1)) didMove = true;
               }
-              if(TryMove(ghosts[i], 1, 0)) continue;
+              if(TryMove(ghosts[i], 1, 0)) didMove = true;
           }
-          ghosts[i].lastDirection = ' ';
+
+          if(!didMove)
+            ghosts[i].lastDirection = ' ';
        }
     }
 
-    void Move(Character& ghost, bool isYAxis, int step)
+    bool Move(Character& ghost, bool isYAxis, int step)
     {
       if(isYAxis)
       {
@@ -193,6 +196,8 @@ public:
                 ghost.lastDirection = 'U';
               else
                 ghost.lastDirection = 'D';
+
+                return true;
           }
       }
       else
@@ -205,7 +210,10 @@ public:
                 ghost.lastDirection = 'L';
               else
                 ghost.lastDirection = 'R';
+
+                return true;
           }
       }
+      return false;
     }
 };

@@ -57,7 +57,15 @@ public:
 
   bool ContainsGhost(int y, int x)
   {
-      if(GetYX(y, x) != 'w' || GetYX(y, x) != 'R' || GetYX(y, x) != 'B' || GetYX(y, x) != 'O' || GetYX(y, x) != 'P')
+      if(GetYX(y, x) == 'R' || GetYX(y, x) == 'B' || GetYX(y, x) == 'O' || GetYX(y, x) == 'P')
+        return true;
+      else
+        return false;
+  }
+
+  bool ContainsWall(int y, int x)
+  {
+      if(GetYX(y, x) == 'w')
         return true;
       else
         return false;
@@ -148,7 +156,7 @@ public:
           {
               if(pacmanPos.x >= ghosts[i].x)
               {
-                    if(ContainsGhost(ghosts[i].y + 1, ghosts[i].x) == false) //Down
+                    if(ContainsGhost(ghosts[i].y + 1, ghosts[i].x) == false && ContainsWall(ghosts[i].y + 1, ghosts[i].x) == false) //Down
                     {
                       Move(ghosts[i], true, 1);
                       continue;
@@ -156,7 +164,7 @@ public:
                     else if(GetYX(ghosts[i].y + 1, ghosts[i].x) == 'w')
                       ghosts[i].lastDirection = ' ';
 
-                    if(ContainsGhost(ghosts[i].y, ghosts[i].x + 1) == false)//Right
+                    if(ContainsGhost(ghosts[i].y, ghosts[i].x + 1) == false && ContainsWall(ghosts[i].y, ghosts[i].x + 1) == false)//Right
                     {
                       Move(ghosts[i], false, 1);
                       continue;
@@ -164,7 +172,7 @@ public:
                     else if(GetYX(ghosts[i].y, ghosts[i].x + 1) == 'w')
                       ghosts[i].lastDirection = ' ';
 
-                    if(ContainsGhost(ghosts[i].y, ghosts[i].x - 1) == false)//Left
+                    if(ContainsGhost(ghosts[i].y, ghosts[i].x - 1) == false && ContainsWall(ghosts[i].y, ghosts[i].x - 1) == false)//Left
                     {
                       Move(ghosts[i], false, -1);
                       continue;
@@ -172,7 +180,7 @@ public:
                     else if(GetYX(ghosts[i].y, ghosts[i].x - 1) == 'w')
                       ghosts[i].lastDirection = ' ';
 
-                    if(ContainsGhost(ghosts[i].y - 1, ghosts[i].x) == false)//Up
+                    if(ContainsGhost(ghosts[i].y - 1, ghosts[i].x) == false && ContainsWall(ghosts[i].y - 1, ghosts[i].x) == false)//Up
                     {
                       Move(ghosts[i], true, -1);
                       continue;
@@ -182,7 +190,7 @@ public:
                   }
                   else
                   {
-                      if(ContainsGhost(ghosts[i].y + 1, ghosts[i].x) == false) //Down
+                      if(ContainsGhost(ghosts[i].y + 1, ghosts[i].x) == false && ContainsWall(ghosts[i].y + 1, ghosts[i].x) == false) //Down
                       {
                         Move(ghosts[i], true, 1);
                         continue;
@@ -190,7 +198,7 @@ public:
                       else if(GetYX(ghosts[i].y + 1, ghosts[i].x) == 'w')
                         ghosts[i].lastDirection = ' ';
 
-                      if(ContainsGhost(ghosts[i].y, ghosts[i].x - 1) == false)//Left
+                      if(ContainsGhost(ghosts[i].y, ghosts[i].x - 1) == false && ContainsWall(ghosts[i].y, ghosts[i].x - 1) == false)//Left
                       {
                         Move(ghosts[i], false, -1);
                         continue;
@@ -198,7 +206,7 @@ public:
                       else if(GetYX(ghosts[i].y, ghosts[i].x - 1) == 'w')
                         ghosts[i].lastDirection = ' ';
 
-                      if(ContainsGhost(ghosts[i].y, ghosts[i].x + 1) == false)//Right
+                      if(ContainsGhost(ghosts[i].y, ghosts[i].x + 1) == false && ContainsWall(ghosts[i].y, ghosts[i].x + 1) == false)//Right
                       {
                         Move(ghosts[i], false, 1);
                         continue;
@@ -206,7 +214,7 @@ public:
                       else if(GetYX(ghosts[i].y, ghosts[i].x + 1) == 'w')
                         ghosts[i].lastDirection = ' ';
 
-                      if(ContainsGhost(ghosts[i].y - 1, ghosts[i].x) == false)//Up
+                      if(ContainsGhost(ghosts[i].y - 1, ghosts[i].x) == false  && ContainsWall(ghosts[i].y - 1, ghosts[i].x) == false)//Up
                       {
                         Move(ghosts[i], true, -1);
                         continue;
@@ -219,7 +227,7 @@ public:
           {
             if(pacmanPos.x <= ghosts[i].x)
             {
-                if(ContainsGhost(ghosts[i].y - 1, ghosts[i].x) == false)//Up
+                if(ContainsGhost(ghosts[i].y - 1, ghosts[i].x) == false && ContainsWall(ghosts[i].y - 1, ghosts[i].x) == false)//Up
                 {
                   Move(ghosts[i], true, -1);
                   continue;
@@ -227,7 +235,7 @@ public:
                 else if(GetYX(ghosts[i].y - 1, ghosts[i].x) == 'w')
                   ghosts[i].lastDirection = ' ';
 
-                if(ContainsGhost(ghosts[i].y, ghosts[i].x - 1) == false)//Left
+                if(ContainsGhost(ghosts[i].y, ghosts[i].x - 1) == false && ContainsWall(ghosts[i].y, ghosts[i].x - 1) == false)//Left
                 {
                   Move(ghosts[i], false, -1);
                   continue;
@@ -235,7 +243,7 @@ public:
                 else if(GetYX(ghosts[i].y, ghosts[i].x - 1) == 'w')
                   ghosts[i].lastDirection = ' ';
 
-                if(ContainsGhost(ghosts[i].y, ghosts[i].x + 1) == false)//Right
+                if(ContainsGhost(ghosts[i].y, ghosts[i].x + 1) == false && ContainsWall(ghosts[i].y, ghosts[i].x + 1) == false)//Right
                 {
                   Move(ghosts[i], false, 1);
                   continue;
@@ -243,7 +251,7 @@ public:
                 else if(GetYX(ghosts[i].y, ghosts[i].x + 1) == 'w')
                   ghosts[i].lastDirection = ' ';
 
-                if(ContainsGhost(ghosts[i].y + 1, ghosts[i].x) == false) //Down
+                if(ContainsGhost(ghosts[i].y + 1, ghosts[i].x) == false && ContainsWall(ghosts[i].y + 1, ghosts[i].x) == false) //Down
                 {
                   Move(ghosts[i], true, 1);
                   continue;
@@ -253,7 +261,7 @@ public:
             }
             else
             {
-                if(ContainsGhost(ghosts[i].y - 1, ghosts[i].x) == false)//Up
+                if(ContainsGhost(ghosts[i].y - 1, ghosts[i].x) == false && ContainsWall(ghosts[i].y - 1, ghosts[i].x) == false)//Up
                 {
                   Move(ghosts[i], true, -1);
                   continue;
@@ -261,7 +269,7 @@ public:
                 else if(GetYX(ghosts[i].y - 1, ghosts[i].x) == 'w')
                   ghosts[i].lastDirection = ' ';
 
-                if(ContainsGhost(ghosts[i].y, ghosts[i].x + 1) == false)//Right
+                if(ContainsGhost(ghosts[i].y, ghosts[i].x + 1) == false && ContainsWall(ghosts[i].y, ghosts[i].x + 1) == false)//Right
                 {
                   Move(ghosts[i], false, 1);
                   continue;
@@ -269,7 +277,7 @@ public:
                 else if(GetYX(ghosts[i].y, ghosts[i].x + 1) == 'w')
                   ghosts[i].lastDirection = ' ';
 
-                if(ContainsGhost(ghosts[i].y, ghosts[i].x - 1) == false)//Left - 1
+                if(ContainsGhost(ghosts[i].y, ghosts[i].x - 1) == false && ContainsWall(ghosts[i].y, ghosts[i].x - 1) == false)//Left - 1
                 {
                   Move(ghosts[i], false, -1);
                   continue;
@@ -277,14 +285,14 @@ public:
                 else if(GetYX(ghosts[i].y, ghosts[i].x - 1) == 'w')
                   ghosts[i].lastDirection = ' ';
 
-                if(ContainsGhost(ghosts[i].y + 1, ghosts[i].x) == false) //Down
+                if(ContainsGhost(ghosts[i].y + 1, ghosts[i].x) == false && ContainsWall(ghosts[i].y + 1, ghosts[i].x) == false) //Down
                 {
                   Move(ghosts[i], true, 1);
                   continue;
                 }
                 else if(GetYX(ghosts[i].y + 1, ghosts[i].x) == 'w')
                   ghosts[i].lastDirection = ' ';
-             }
+            }
           }
        }
     }

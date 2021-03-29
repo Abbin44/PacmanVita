@@ -81,12 +81,8 @@ public:
             Move(ghost, false, xStep);
           return true;
       }
-      else if(ContainsWall(ghost.y + yStep, ghost.x + xStep) == true)
-      {
-          ghost.lastDirection = ' ';
-          return false;
-      }
-      return false;
+      else
+        return false;
   }
 
   void DrawMap()
@@ -153,33 +149,38 @@ public:
       {
           if(pacmanPos.y > ghosts[i].y)//If pacman is below the ghost
           {
-              TryMove(ghosts[i], 1, 0);
+              if(TryMove(ghosts[i], 1, 01)) continue;
               if(pacmanPos.x >= ghosts[i].x)
               {
-                  TryMove(ghosts[i], 0, 1);
-                  TryMove(ghosts[i], 0, -1);
+                  if(TryMove(ghosts[i], 0, 1)) continue;
+                  if(TryMove(ghosts[i], 0, -1)) continue;
               }
               else
               {
-                  TryMove(ghosts[i], 0, -1);
-                  TryMove(ghosts[i], 0, 1);
+                  if(TryMove(ghosts[i], 0, -1));
+                  if(TryMove(ghosts[i], 0, 1));
               }
-              TryMove(ghosts[i], -1, 0);
+              if(TryMove(ghosts[i], -1, 0)) continue;
           }
           else if(pacmanPos.y <= ghosts[i].y)//If pacman is above the ghost
           {
-              TryMove(ghosts[i], -1, 0);
+              if(TryMove(ghosts[i], -1, 0)) continue;
               if(pacmanPos.x <= ghosts[i].x)
               {
-                  TryMove(ghosts[i], 0, -1);
-                  TryMove(ghosts[i], 0, 1);
+                  if(TryMove(ghosts[i], 0, -1)) continue;
+                  if(TryMove(ghosts[i], 0, 1)) continue;
               }
               else
               {
-                  TryMove(ghosts[i], 0, 1);
-                  TryMove(ghosts[i], 0, -1);
+                  if(TryMove(ghosts[i], 0, 1)) continue;
+                  if(TryMove(ghosts[i], 0, -1)) continue;
               }
-              TryMove(ghosts[i], 1, 0);
+              if(TryMove(ghosts[i], 1, 0)) continue;
+          }
+          else if(ContainsWall(ghost.y + yStep, ghost.x + xStep) == true || ContainsGhost(ghost.y + yStep, ghost.x + xStep) == true)
+          {
+              ghost.lastDirection = ' ';
+              return;
           }
        }
     }
@@ -191,7 +192,6 @@ public:
           if(step < 0 && ghost.lastDirection != 'D' || step > 0 && ghost.lastDirection != 'U')
           {
               ghost.y = ghost.y + step;
-              SetYX(ghost.y, ghost.x, ghost.icon);
 
               if(step < 0)
                 ghost.lastDirection = 'U';
@@ -204,7 +204,6 @@ public:
           if(step < 0 && ghost.lastDirection != 'L' || step > 0 && ghost.lastDirection != 'R')
           {
               ghost.x = ghost.x + step;
-              SetYX(ghost.y, ghost.x, ghost.icon);
 
               if(step < 0)
                 ghost.lastDirection = 'L';

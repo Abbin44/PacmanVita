@@ -84,4 +84,23 @@ vita_create_vpk(${PROJECT_NAME}.vpk ${VITA_TITLEID} ${PROJECT_NAME}.self
   FILE assets/pacmanU.png assets/pacmanU.png
   FILE assets/pacmanD.png assets/pacmanD.png
 
+  FILE assets/bGhostD.png assets/bGhostD.png
+  FILE assets/bGhostL.png assets/bGhostL.png
+  FILE assets/bGhostR.png assets/bGhostR.png
+  FILE assets/bGhostU.png assets/bGhostU.png
+
+  FILE assets/oGhostD.png assets/oGhostD.png
+  FILE assets/oGhostL.png assets/oGhostL.png
+  FILE assets/oGhostR.png assets/oGhostR.png
+  FILE assets/oGhostU.png assets/oGhostU.png
+
+  FILE assets/pGhostD.png assets/pGhostD.png
+  FILE assets/pGhostL.png assets/pGhostL.png
+  FILE assets/pGhostR.png assets/pGhostR.png
+  FILE assets/pGhostU.png assets/pGhostU.png
+
+  FILE assets/rGhostD.png assets/rGhostD.png
+  FILE assets/rGhostL.png assets/rGhostL.png
+  FILE assets/rGhostR.png assets/rGhostR.png
+  FILE assets/rGhostU.png assets/rGhostU.png
 )

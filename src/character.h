@@ -7,5 +7,4 @@ class Character
     int frame = 0;
     int rotation = 1;
     char lastDirection;
-    char icon;
 };

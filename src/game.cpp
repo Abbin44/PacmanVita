@@ -13,14 +13,9 @@
 void Game::StartGame()
 {
     vita2d_init();
-
+    Map map;
     vita2d_pgf *pgf;
     pgf = vita2d_load_default_pgf();
-    Map map;
-    map.ghosts[0].icon = 'R';
-    map.ghosts[1].icon = 'B';
-    map.ghosts[2].icon = 'O';
-    map.ghosts[3].icon = 'P';
 
     map.ghosts[0].x = 9;
     map.ghosts[0].y = 7;
@@ -203,13 +198,32 @@ void Game::StartGame()
         vita2d_swap_buffers();
 
         //1000000 is one second
-        //Currently sleeping 75ms
-        sceKernelDelayThread(75000);
+        //Currently sleeping 90ms
+        sceKernelDelayThread(90000);
     }
     vita2d_fini();
-}
+    vita2d_free_texture(map.pacmanSR);
+    vita2d_free_texture(map.pacmanSL);
+    vita2d_free_texture(map.pacmanSU);
+    vita2d_free_texture(map.pacmanSD);
 
-void MovePacman(Character& pacman, int yStep, int xStep, int rotation)
-{
+    vita2d_free_texture(map.bGhostD);
+    vita2d_free_texture(map.bGhostL);
+    vita2d_free_texture(map.bGhostR);
+    vita2d_free_texture(map.bGhostU);
 
+    vita2d_free_texture(map.oGhostD);
+    vita2d_free_texture(map.oGhostL);
+    vita2d_free_texture(map.oGhostR);
+    vita2d_free_texture(map.oGhostU);
+
+    vita2d_free_texture(map.pGhostD);
+    vita2d_free_texture(map.pGhostL);
+    vita2d_free_texture(map.pGhostR);
+    vita2d_free_texture(map.pGhostU);
+
+    vita2d_free_texture(map.rGhostD);
+    vita2d_free_texture(map.rGhostL);
+    vita2d_free_texture(map.rGhostR);
+    vita2d_free_texture(map.rGhostU);
 }

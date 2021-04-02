@@ -42,4 +42,31 @@ public:
       vita2d_free_pgf(pgf);
       vita2d_free_texture(logo);
   }
+
+  void EndScreen(int score)
+  {
+      vita2d_init();
+      vita2d_set_clear_color(RGBA8(0, 0, 0, 255));
+      vita2d_pgf *pgf = vita2d_load_default_pgf();
+      SceCtrlData ctrl;
+
+      while(1)
+      {
+        sceCtrlPeekBufferPositive(0, &ctrl, 1);
+
+        if (ctrl.buttons & SCE_CTRL_START)
+          break;
+        else if(ctrl.buttons & SCE_CTRL_SELECT)
+            sceKernelExitProcess(0);
+
+        vita2d_pgf_draw_text(pgf, screenWidth / 3 + 15, screenHeight / 2 - 30, RGBA8(255,255,255,255), 1.0f, "YOU LOST WITH A SCORE OF: " + score);
+        vita2d_pgf_draw_text(pgf, screenWidth / 3 + 15, screenHeight / 2 - 10, RGBA8(255,255,255,255), 1.0f, "PRESS START TO PLAY AGAIN!");
+        vita2d_pgf_draw_text(pgf, screenWidth / 3 + 15, screenHeight / 2 + 10, RGBA8(255,255,255,255), 1.0f, "PRESS SELECT TO EXIT!");
+
+        vita2d_end_drawing();
+        vita2d_swap_buffers();
+      }
+      vita2d_fini();
+      vita2d_free_pgf(pgf);
+  }
 };

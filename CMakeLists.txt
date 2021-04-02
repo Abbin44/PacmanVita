@@ -103,4 +103,7 @@ vita_create_vpk(${PROJECT_NAME}.vpk ${VITA_TITLEID} ${PROJECT_NAME}.self
   FILE assets/rGhostL.png assets/rGhostL.png
   FILE assets/rGhostR.png assets/rGhostR.png
   FILE assets/rGhostU.png assets/rGhostU.png
+
+  FILE assets/redHeart.png assets/redHeart.png
+  FILE assets/grayHeart.png assets/grayHeart.png
 )

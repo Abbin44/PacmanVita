@@ -8,7 +8,6 @@
 
 #include "screen.h"
 #include "game.h"
-#include "map.h"
 
 void Game::StartGame()
 {
@@ -16,6 +15,8 @@ void Game::StartGame()
     Map map;
     vita2d_pgf *pgf;
     pgf = vita2d_load_default_pgf();
+    vita2d_texture *redHeart = vita2d_load_PNG_file("app0:assets/redHeart.png");
+    vita2d_texture *grayHeart = vita2d_load_PNG_file("app0:assets/grayHeart.png");
 
     map.ghosts[0].x = 9;
     map.ghosts[0].y = 7;
@@ -34,7 +35,7 @@ void Game::StartGame()
     {
       vita2d_start_drawing();
       vita2d_clear_screen();
-
+      CollidedWithGhost(map);
       std::string pacX = std::to_string(map.pacmanPos.x);
       std::string pacY = std::to_string(map.pacmanPos.y);
       std::string scrString = "Score: " + std::to_string(score);
@@ -42,6 +43,30 @@ void Game::StartGame()
       vita2d_pgf_draw_text(pgf, 30, 30, RGBA8(0,255,0,255), 1.0f, pacX.data());
       vita2d_pgf_draw_text(pgf, 30, 60, RGBA8(0,255,0,255), 1.0f, pacY.data());
       vita2d_pgf_draw_text(pgf, 698, screen.screenHeight - 19, RGBA8(0,255,0,255), 1.0f, scrString.data());
+
+      if(lives == 3)
+      {
+        vita2d_draw_texture_scale(redHeart, 700, screen.screenHeight - 60, 1.0f, 1.0f);
+        vita2d_draw_texture_scale(redHeart, 780, screen.screenHeight - 60, 1.0f, 1.0f);
+        vita2d_draw_texture_scale(redHeart, 860, screen.screenHeight - 60, 1.0f, 1.0f);
+
+      }
+      else if(lives == 2)
+      {
+        vita2d_draw_texture_scale(redHeart, 700, screen.screenHeight - 60, 1.0f, 1.0f);
+        vita2d_draw_texture_scale(redHeart, 780, screen.screenHeight - 60, 1.0f, 1.0f);
+        vita2d_draw_texture_scale(grayHeart, 860, screen.screenHeight - 60, 1.0f, 1.0f);
+
+      }
+      else if(lives == 1)
+      {
+        vita2d_draw_texture_scale(redHeart, 700, screen.screenHeight - 60, 1.0f, 1.0f);
+        vita2d_draw_texture_scale(grayHeart, 780, screen.screenHeight - 60, 1.0f, 1.0f);
+        vita2d_draw_texture_scale(grayHeart, 860, screen.screenHeight - 60, 1.0f, 1.0f);
+
+      }
+      else if(lives <= 0)
+        gameOver = true;
 
       sceCtrlSetSamplingMode(SCE_CTRL_MODE_ANALOG);
       sceCtrlPeekBufferPositive(0, &ctrl, 1);
@@ -226,4 +251,100 @@ void Game::StartGame()
     vita2d_free_texture(map.rGhostL);
     vita2d_free_texture(map.rGhostR);
     vita2d_free_texture(map.rGhostU);
+
+    vita2d_free_texture(redHeart);
+    vita2d_free_texture(grayHeart);
+    
+    screen.EndScreen(score);
 }
+/*
+void MovePacman(int xStep, int yStep, Map& map)
+{
+  switch (map.GetYX(map.pacmanPos.y + yStep, map.pacmanPos.x + xStep))
+  {
+    case 'w': break;
+    case 'p':
+      --totalPellets;
+      ++score;
+      map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'e');
+
+      if(yStep > 0)
+      {
+        map.pacmanPos.y = map.pacmanPos.y + yStep;
+        map.pacmanPos.rotation = 4;
+      }
+      else if(yStep < 0)
+      {
+        map.pacmanPos.y = map.pacmanPos.y + yStep;
+        map.pacmanPos.rotation = 3;
+      }
+      else if(xStep > 0)
+      {
+        map.pacmanPos.x = map.pacmanPos.x + xStep;
+        map.pacmanPos.rotation = 1;
+      }
+      else if(xStep < 0)
+      {
+        map.pacmanPos.x = map.pacmanPos.x + xStep;
+        map.pacmanPos.rotation = 2;
+      }
+
+      map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'Y');
+      break;
+    case 's': //Special pellet
+      --totalPellets;
+      ++score;
+      map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'e');
+
+      if(yStep > 0)
+      {
+        map.pacmanPos.y = map.pacmanPos.y + yStep;
+        map.pacmanPos.rotation = 4;
+      }
+      else if(yStep < 0)
+      {
+        map.pacmanPos.y = map.pacmanPos.y + yStep;
+        map.pacmanPos.rotation = 3;
+      }
+      else if(xStep > 0)
+      {
+        map.pacmanPos.x = map.pacmanPos.x + xStep;
+        map.pacmanPos.rotation = 1;
+      }
+      else if(xStep < 0)
+      {
+        map.pacmanPos.x = map.pacmanPos.x + xStep;
+        map.pacmanPos.rotation = 2;
+      }
+      map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'Y');
+      break;
+    case 'e':
+      map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'e');
+
+      if(yStep > 0)
+      {
+        map.pacmanPos.y = map.pacmanPos.y + yStep;
+        map.pacmanPos.rotation = 4;
+      }
+      else if(yStep < 0)
+      {
+        map.pacmanPos.y = map.pacmanPos.y + yStep;
+        map.pacmanPos.rotation = 3;
+      }
+      else if(xStep > 0)
+      {
+        map.pacmanPos.x = map.pacmanPos.x + xStep;
+        map.pacmanPos.rotation = 1;
+      }
+      else if(xStep < 0)
+      {
+        map.pacmanPos.x = map.pacmanPos.x + xStep;
+        map.pacmanPos.rotation = 2;
+      }
+
+      map.SetYX(map.pacmanPos.y, map.pacmanPos.x, 'Y');
+      break;
+    default: break;
+  }
+}
+*/

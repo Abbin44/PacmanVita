@@ -1,3 +1,6 @@
+#include "map.h"
+
+
 class Game
 {
 public:
@@ -5,4 +8,14 @@ public:
   bool gameOver = false;
   int totalPellets = 150;
   int score = 0;
+  int lives = 3;
+private:
+  void CollidedWithGhost(Map map)
+  {
+      for (size_t i = 0; i < 4; ++i)
+      {
+          if(map.pacmanPos.x == map.ghosts[i].x && map.pacmanPos.y == map.ghosts[i].y)
+            --lives;
+      }
+  }
 };

@@ -1,6 +1,5 @@
 #include "map.h"
 
-
 class Game
 {
 public:

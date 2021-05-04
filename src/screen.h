@@ -24,7 +24,7 @@ public:
         sceCtrlPeekBufferPositive(0, &ctrl, 1);
 
         if (ctrl.buttons & SCE_CTRL_START)
-            break;
+          break;
         else if(ctrl.buttons & SCE_CTRL_SELECT)
             sceKernelExitProcess(0);
 

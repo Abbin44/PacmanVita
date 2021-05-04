@@ -1,6 +1,6 @@
 #include <psp2/kernel/processmgr.h>
-#include "game.h"
 #include "screen.h"
+#include "game.h"
 int main()
 {
 	Screen screen;

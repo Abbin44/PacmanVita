@@ -42,6 +42,7 @@ void Game::StartGame()
 
       vita2d_pgf_draw_text(pgf, 30, 30, RGBA8(0,255,0,255), 1.0f, pacX.data());
       vita2d_pgf_draw_text(pgf, 30, 60, RGBA8(0,255,0,255), 1.0f, pacY.data());
+      vita2d_pgf_draw_text(pgf, 30, 90, RGBA8(0,255,0,255), 1.0f, &lastDir);
       vita2d_pgf_draw_text(pgf, 698, screen.screenHeight - 19, RGBA8(0,255,0,255), 1.0f, scrString.data());
 
       if(lives == 3)
@@ -217,14 +218,20 @@ void Game::StartGame()
   			break;
 
         map.DrawMap();
-        map.MoveGhosts();
+        if(moving == true)//Only move ghost every other frame
+        {
+          map.MoveGhosts();
+          moving = !moving;
+        }
+        else
+          moving = !moving;
 
         vita2d_end_drawing();
         vita2d_swap_buffers();
 
         //1000000 is one second
-        //Currently sleeping 90ms
-        sceKernelDelayThread(90000);
+        //Currently sleeping 120ms
+        sceKernelDelayThread(120000);
     }
     vita2d_fini();
     vita2d_free_texture(map.pacmanSR);
@@ -254,10 +261,10 @@ void Game::StartGame()
 
     vita2d_free_texture(redHeart);
     vita2d_free_texture(grayHeart);
-    
-    screen.EndScreen(score);
 }
-/*
+
+
+/*This unfinished code is meant to be a cleaner version of the current moving code.
 void MovePacman(int xStep, int yStep, Map& map)
 {
   switch (map.GetYX(map.pacmanPos.y + yStep, map.pacmanPos.x + xStep))

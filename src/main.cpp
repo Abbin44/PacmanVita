@@ -6,8 +6,12 @@ int main()
 	Screen screen;
 	screen.StartScreen();
 
-	Game gm;
-	gm.StartGame();
+	while(true)
+	{
+			Game gm;
+			gm.StartGame();
+			screen.EndScreen(gm.score);
+	}
 
 	sceKernelExitProcess(0);
 	return 0;

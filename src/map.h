@@ -128,21 +128,13 @@ public:
         for (size_t j = 0; j < 20; ++j)
         {
           if(GetYX(i, j) == 'w')
-          {
             vita2d_draw_rectangle(x, y, tileUnitSize, tileUnitSize, RGBA8(0, 0, 255, 255));//Draw a wall
-          }
           else if(GetYX(i, j) == 'p')
-          {
             vita2d_draw_rectangle(x + 6, y + 6, tileUnitSize / 2, tileUnitSize / 2, RGBA8(255, 255, 255, 255));//Draw a pellet
-          }
           else if(GetYX(i, j) == 's')
-          {
             vita2d_draw_rectangle(x + 6, y + 6, tileUnitSize / 2 + 4, tileUnitSize / 2 + 4, RGBA8(255, 0, 0, 255));//Draw a special pellet
-          }
           else if(GetYX(i, j) == 'e')
-          {
             vita2d_draw_rectangle(x, y, tileUnitSize, tileUnitSize, RGBA8(0, 0, 0, 255));//Draw empty space
-          }
           else if(GetYX(i, j) == 'Y')//Pacman
           {
               pacmanPos.y = i;
@@ -237,10 +229,6 @@ public:
             default:
                 break;
           }
-          //vita2d_draw_rectangle(ghosts[0].x * tileUnitSize + 213, ghosts[0].y * tileUnitSize, tileUnitSize, tileUnitSize, RGBA8(0, 225, 255, 255));
-          //vita2d_draw_rectangle(ghosts[1].x * tileUnitSize + 213, ghosts[1].y * tileUnitSize, tileUnitSize, tileUnitSize, RGBA8(255, 170, 40, 255));
-          //vita2d_draw_rectangle(ghosts[2].x * tileUnitSize + 213, ghosts[2].y * tileUnitSize, tileUnitSize, tileUnitSize, RGBA8(255, 115, 210, 255));
-          //vita2d_draw_rectangle(ghosts[3].x * tileUnitSize + 213, ghosts[3].y * tileUnitSize, tileUnitSize, tileUnitSize, RGBA8(255, 0, 0, 255));
           x += tileUnitSize;
         }
         y += tileUnitSize;

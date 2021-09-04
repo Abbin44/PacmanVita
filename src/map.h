@@ -240,7 +240,41 @@ public:
 
   void MoveGhosts()
   {
-      for (size_t i = 0; i < 4; ++i)
+      int redX = rand() % 3 - 1;//These switch statements are used to move red and blue ghost in a random direction
+      int redY = rand() % 3 - 1;
+      int blueX = rand() % 3 - 1;
+      int blueY = rand() % 3 - 1;
+
+      if(isInStartingArea(ghosts[0]))
+      {
+        bool moved = TryMove(ghosts[0], -1, 0) or TryMove(ghosts[0], -1, -1) or TryMove(ghosts[0], -1, 1);
+      }
+      else
+      {
+        switch(TryMove(ghosts[0], redY, redX))
+        {
+            case true : break;
+            case false :
+                redX = rand() % 3 - 1;
+                redY = rand() % 3 - 1;
+        }
+      }
+      if(isInStartingArea(ghosts[1]))
+      {
+        bool moved = TryMove(ghosts[1], -1, 0) or TryMove(ghosts[1], -1, -1) or TryMove(ghosts[1], -1, 1);
+      }
+      else
+      {
+        switch(TryMove(ghosts[1], blueY, blueX))
+        {
+            case true : break;
+            case false :
+                blueX = rand() % 3 - 1;
+                blueY = rand() % 3 - 1;
+        }
+      }
+
+      for (size_t i = 2; i < 4; ++i)
       {
           bool didMove = false;
           if(isInStartingArea(ghosts[i]))
@@ -369,7 +403,6 @@ public:
                   ghost.lastDirection = 'R';
                   ghost.rotation = 1;
               }
-
                 return true;
           }
       }

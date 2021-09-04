@@ -9,7 +9,7 @@
 #include "screen.h"
 #include "game.h"
 
-void Game::StartGame()
+int Game::StartGame()
 {
     vita2d_init();
     Map map;
@@ -217,7 +217,6 @@ void Game::StartGame()
       if (ctrl.buttons & SCE_CTRL_SELECT) //Exit
   			break;
 
-        map.DrawMap();
         if(moving == true)//Only move ghost every other frame
         {
           map.MoveGhosts();
@@ -225,6 +224,8 @@ void Game::StartGame()
         }
         else
           moving = !moving;
+
+        map.DrawMap();
 
         vita2d_end_drawing();
         vita2d_swap_buffers();
@@ -261,6 +262,7 @@ void Game::StartGame()
 
     vita2d_free_texture(redHeart);
     vita2d_free_texture(grayHeart);
+    return score;
 }
 
 

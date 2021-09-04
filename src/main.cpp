@@ -3,14 +3,15 @@
 #include "game.h"
 int main()
 {
+	int score;
 	Screen screen;
 	screen.StartScreen();
 
 	while(true)
 	{
 			Game gm;
-			gm.StartGame();
-			screen.EndScreen(gm.score);
+			score = gm.StartGame();
+			screen.EndScreen(score);
 	}
 
 	sceKernelExitProcess(0);
